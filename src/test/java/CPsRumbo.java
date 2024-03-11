@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class CPsRumbo {
+public class CPsRumbo {/*
     WebDriver driver;
     WebDriverWait espera;
 
@@ -68,13 +68,13 @@ public class CPsRumbo {
         FESeleccion.click();
 
 
-        /*WebElement fechaSalida = espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Fecha de salida']")));
+        WebElement fechaSalida = espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Fecha de salida']")));
         fechaSalida.click();
         Thread.sleep(500);
 
         WebElement FSSelecion = espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'18')]")));
-        FSSelecion.click();*/
+        FSSelecion.click();
 
-    }
+    }*/
 
 }
