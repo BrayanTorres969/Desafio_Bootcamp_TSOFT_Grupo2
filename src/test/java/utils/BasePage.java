@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class BasePage {
     //Wrapper de selenium
     private WebDriver driver;
@@ -47,6 +49,11 @@ public class BasePage {
     public WebElement esperarElementoWeb(By localizador){
         espera = new WebDriverWait(this.driver,30);
         return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
+
+    public List<WebElement> esperarElementosWeb(By localizador){
+        espera = new WebDriverWait(this.driver,30);
+        return espera.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(localizador));
     }
 
     public void cargarSitio(String url){

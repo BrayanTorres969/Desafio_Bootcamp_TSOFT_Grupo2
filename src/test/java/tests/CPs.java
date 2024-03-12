@@ -28,13 +28,13 @@ public class CPs {
 
     @AfterEach
     public void posCondiciones(){
-        home.cerrarBrowser();
+        //home.cerrarBrowser();
     }
 
     @Test
     public void CP001_Creacion_Cta_Spotify(){
         home.aceptarCookies();
-        home.esperarXsegundos(1000);
+        home.buscarHoteles();
     }
 
 
