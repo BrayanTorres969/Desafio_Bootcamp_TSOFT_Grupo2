@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import proyecto.pages.HomePage;
@@ -64,5 +65,60 @@ public class CPs {
         //Validar resultados
         vuelosPage.validarCampoOrigen();
         vuelosPage.validarCampoDestino();
+    }
+
+    @Test
+    public void TC002_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos() {
+
+        //Aceptar cookies
+        home.aceptarCookies();
+
+        home.esperarXsegundos(1000);
+        home.irAVuelos();
+        vuelosPage = new VuelosPage(driver);
+        vuelosPage.hacerScrollHastaCategoriaVuelos();
+        vuelosPage.irAVuelosNacionales();
+        vuelosPage.esperarXsegundos(5000);
+        vuelosPage.cambiarALaUltimaVentanaAbierta();
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarOpcionSoloIda();
+
+        try {
+            vuelosPage.limpiarValorOrigenPorDefecto();
+        } catch (InterruptedException | NoSuchElementException e) {
+            System.out.println(e);
+        }
+
+        vuelosPage.ingresarOrigenVuelo("Valencia (VLC)");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.ingresarDestinoVuelo("Madrid (MAD)");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarCampoFechaDeIda();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='3-2024']//button[text()='15']");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarCampoPasajeros();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.aumentarNumPasajerosAdultos();
+        vuelosPage.seleccionarCampoPasajeros();
+        vuelosPage.seleccionarClaseVueloTurista();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.buscarVuelos();
+
+        //validar a lo menos una trip card
+        vuelosPage.esperarXsegundos(10000);
+        vuelosPage.filtrarResultadosPorVuelo();
+        vuelosPage.esperarXsegundos(10000);
+        vuelosPage.volverInicioPagina();
+        if (!vuelosPage.obtenerResultadosVuelosBuscados().isEmpty()) {
+            vuelosPage.esperarXsegundos(3000);
+            vuelosPage.seleccionarPrimerResultadoDeBusqueda();
+        } else {
+            System.out.println("No hay resultados para esta búsqueda");
+        }
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.validarRutaDetalleVuelo("Valencia", "Madrid");
+
+
     }
 }

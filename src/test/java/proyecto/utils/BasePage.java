@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.Set;
 
 public class BasePage {
@@ -32,6 +33,10 @@ public class BasePage {
     //Métodos que invocan las librerias de selenium
     public WebElement buscarElementoWeb(By localizador) {
         return driver.findElement(localizador);
+    }
+
+    public List<WebElement> buscarElementosWeb(By localizador) {
+        return driver.findElements(localizador);
     }
 
     public void clic(By localizador) {
@@ -89,6 +94,10 @@ public class BasePage {
 
     public void hacerScrollHasta(WebElement elemento) {
         js.executeScript("arguments[0].scrollIntoView();", elemento);
+    }
+
+    public void volverInicioPagina() {
+        js.executeScript("window.scrollTo(0, 0);");
     }
 
     public void cambiarALaUltimaVentanaAbierta() {
