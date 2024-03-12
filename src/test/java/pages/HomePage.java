@@ -51,7 +51,7 @@ public class HomePage extends BasePage {
         //clic(esperarElementoWeb(byPersonas));
         //clic(esperarElementoWeb(byPibes));
         //clic(esperarElementoWeb(byPibeEdad));
-        //clic(esperarElementoWeb(byConfirmar));
+        //clic(esperarElementoWeb(byConfirmar));d
         clic(esperarElementoWeb(byBuscarHotel));
 
 
