@@ -14,11 +14,9 @@ public class HomePage extends BasePage {
     By byInputBuscar = By.xpath("//input[@id=':R9oqnalbldq2mm:']");
     By byTipoExotico = By.xpath("//li[@id=':R9oqnalbldq2mm:-option-1']");
     By byLimpiarBusqueda = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/fieldset/div/div/div/button");
-    By byFechaEntrada = By.xpath("//button[@aria-label='Fecha de entrada']");
-    By bySeleccionFEn = By.xpath("/html/body/div[13]/div[3]/div/section/div/div[2]/div/div[2]/div/ul/li[1]/div/div[2]/button[6]");
-    By byFechaSalida = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/div[1]/div/div/fieldset/div[3]/button");
-    By bySeleccionFSal = By.xpath("/html/body/div[13]/div[3]/div/section/div/div[2]/div/div[2]/div/ul/li[1]/div/div[2]/button[9]");
-    By byPersonas = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/div[2]/div/div/div/button");
+    By byFechaEntrada = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='16']");
+    By byFechaSalida = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='18']");
+    By byPersonas = By.xpath("//div[@class='d-1k5t2mm']//button[contains(@aria-label, 'Aumentar')]");
     By byPibes = By.xpath("/html/body/div[13]/div[3]/div/div/section/div/div[2]/div[2]/div/button");
     By byPibeEdad = By.xpath("/html/body/div[13]/div[3]/div/div/section/div/div[2]/div[2]/div/div/div/ul/li[8]");
     By byConfirmar = By.xpath("/html/body/div[13]/div[3]/footer/div/button");
@@ -43,12 +41,11 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byInputBuscar));
         clic(esperarElementoWeb(byTipoExotico));
 
-        //clic(esperarElementoWeb(byFechaEntrada));
-        //clic(esperarElementoWeb(bySeleccionFEn));
-        //clic(esperarElementoWeb(byFechaSalida));
+        clic(esperarElementoWeb(byFechaEntrada));
+        clic(esperarElementoWeb(byFechaSalida));
         //clic(esperarElementoWeb(bySeleccionFSal));
 
-        //clic(esperarElementoWeb(byPersonas));
+        clic(esperarElementoWeb(byPersonas));
         //clic(esperarElementoWeb(byPibes));
         //clic(esperarElementoWeb(byPibeEdad));
         //clic(esperarElementoWeb(byConfirmar));d
