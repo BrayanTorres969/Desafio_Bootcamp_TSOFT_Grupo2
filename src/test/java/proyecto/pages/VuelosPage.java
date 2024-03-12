@@ -5,16 +5,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import proyecto.utils.BasePage;
+import proyecto.utils.FixEncoding;
+
+import java.util.List;
 
 public class VuelosPage extends BasePage {
     By byCardCategoriaVuelos = By.xpath("//span[contains(text(),'Vuelos baratos a tu destino favorito')]");
     By byBtnVuelosAEuropa = By.xpath(("//p[contains(text(),'Ver las ofertas')]"));
+    By byBtnVuelosNacionales = By.xpath(("//p[contains(text(),'Reserva ya')]"));
     By bybtnIdaVuelta = By.xpath("//button[contains(text(),'Ida y vuelta')]");
+    By bybtnSoloIda = By.xpath("//button[contains(text(),'Solo ida')]");
     By byBtnLimpiar = By.xpath("//button[@aria-label='Limpiar']");
     By byInputOrigen = By.xpath("//input[@aria-label='Origen']");
+    By byInputFechaDeIda = By.xpath("//button[@aria-label='Fecha de ida']");
+    By byInputPersonas = By.xpath("//label[contains(text(),'Pasajeros y clase del vuelo')]");
     By byInputDestino = By.xpath("//input[@aria-label='Destino']");
     By byBtnBuscar = By.xpath("//button[@aria-label='Buscar']");
+    By byBtnSgtMes = By.xpath("//button[@aria-label='Next month']");
+    By byBtnAumentarNumAdultos = By.xpath(FixEncoding.corregirEncoding("//button[@aria-label='Aumentar el número de adultos']"));
+    By byBtnClaseTurista = By.xpath("//button[@value='Y' and contains(text(),'Turista')]");
+    By byListaResuladosVuelos = By.xpath("//div[@data-e2e='trip-card']");
+    By byTituloCompanias = By.xpath(FixEncoding.corregirEncoding("//h3[contains(text(),'Compañías')]"));
+    By byBtnFiltrarResultadosPorVuelos = By.xpath("//button[@value='flights']");
+    By byTituloCardDetallesVuelo = By.xpath("//h2[@class='Text__BaseText-sc-bargkg-0 chraKX']");
 
+    List<WebElement> tripCards;
 
     public VuelosPage(WebDriver driver) {
         super(driver);
@@ -28,9 +43,40 @@ public class VuelosPage extends BasePage {
         clic(byBtnVuelosAEuropa);
     }
 
+    public void irAVuelosNacionales() {
+        clic(byBtnVuelosNacionales);
+    }
+
     public void seleccionarOpcionIdaYVuelta() {
         clic(bybtnIdaVuelta);
     }
+
+    public void seleccionarOpcionSoloIda() {
+        clic(bybtnSoloIda);
+    }
+
+    public void seleccionarCampoFechaDeIda() {
+        clic(byInputFechaDeIda);
+    }
+
+    public void seleccionarCampoPasajeros() {
+        clic(byInputPersonas);
+    }
+
+    public void seleccionarSgteMes() {
+        clic(byBtnSgtMes);
+    }
+
+    public void aumentarNumPasajerosAdultos() {
+        seleccionarCampoPasajeros();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        clic(byBtnAumentarNumAdultos);
+    }
+
 
     public void limpiarValorOrigenPorDefecto() throws InterruptedException {
         if (buscarElementoWeb(byBtnLimpiar).isDisplayed()) {
@@ -50,6 +96,17 @@ public class VuelosPage extends BasePage {
         agregarTexto(byInputDestino, texto);
     }
 
+    public void ingresarFechaDeIda(String rutaXpath) {
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
+    }
+
+    public void seleccionarClaseVueloTurista() {
+        seleccionarCampoPasajeros();
+        clic(byBtnClaseTurista);
+    }
+
+
     //métodos de salida
     public void buscarVuelos() {
         clic(byBtnBuscar);
@@ -66,4 +123,27 @@ public class VuelosPage extends BasePage {
         String msjErrorDestino = obtenerTexto(spanErrorDestino);
         Assertions.assertEquals("Introduce ciudad o aeropuerto de destino", msjErrorDestino);
     }
+
+    public List<WebElement> obtenerResultadosVuelosBuscados() {
+        return buscarElementosWeb(byListaResuladosVuelos);
+    }
+
+    public void seleccionarPrimerResultadoDeBusqueda() {
+        WebElement primerResultado = obtenerResultadosVuelosBuscados().get(0);
+        clic(primerResultado);
+    }
+
+    public void filtrarResultadosPorVuelo() {
+        hacerScrollHasta(buscarElementoWeb(byTituloCompanias));
+        clic(byBtnFiltrarResultadosPorVuelos);
+    }
+
+    public void validarRutaDetalleVuelo(String origen, String destino) {
+        WebElement elemntoTituloCard = buscarElementoWeb(byTituloCardDetallesVuelo);
+        String textoTituloCard = obtenerTexto(elemntoTituloCard);
+        String ruta = origen + " - " + destino;
+        Assertions.assertEquals(ruta, textoTituloCard);
+    }
+
+
 }
