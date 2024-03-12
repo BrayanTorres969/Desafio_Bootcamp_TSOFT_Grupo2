@@ -32,7 +32,13 @@ public class CPs {
     }
 
     @Test
-    public void CP001_Creacion_Cta_Spotify(){
+    public void CP001_Filtrar_Detalles_Busqueda(){
+        home.aceptarCookies();
+        home.buscarHoteles();
+    }
+
+    @Test
+    public void CP002_Compartir_InfoCasa_Contacto(){
         home.aceptarCookies();
         home.buscarHoteles();
     }

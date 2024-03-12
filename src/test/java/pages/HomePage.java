@@ -45,13 +45,12 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byFechaSalida));
         //clic(esperarElementoWeb(bySeleccionFSal));
 
-        clic(esperarElementoWeb(byPersonas));
+        for(int i=0;i<2;i++){
+            clic(esperarElementoWeb(byPersonas));
+        }
         //clic(esperarElementoWeb(byPibes));
         //clic(esperarElementoWeb(byPibeEdad));
         //clic(esperarElementoWeb(byConfirmar));d
         clic(esperarElementoWeb(byBuscarHotel));
-
-
-
     }
 }
