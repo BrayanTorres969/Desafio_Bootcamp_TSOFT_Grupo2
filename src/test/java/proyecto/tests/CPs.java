@@ -68,7 +68,7 @@ public class CPs {
     }
 
     @Test
-    public void TC002_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos() {
+    public void TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos() {
 
         //Aceptar cookies
         home.aceptarCookies();
