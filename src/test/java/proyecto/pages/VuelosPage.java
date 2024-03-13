@@ -143,7 +143,7 @@ public class VuelosPage extends BasePage {
     public void verificarCheck(String rutaXpath){
         String checkbox_id = "id-Equipaje de mano incl.";
         if ((rutaXpath.compareToIgnoreCase(checkbox_id))==0){
-            driver.execute_script(f'document.getElementById("{checkbox_id}").setAttribute("aria-checked", "true");')
+            //driver.execute_script(f'document.getElementById("{checkbox_id}").setAttribute("aria-checked", "true");')
         }
     }
 
@@ -231,7 +231,7 @@ public class VuelosPage extends BasePage {
 
     public void ClickCheckbox () {
         clic(byBtnCheckboxEquipajeFactu);
-        //no quiere funcionar
+        //no quiere funciona
     }
 
     public void validarRutaDetalleVuelo(String origen, String destino) {
@@ -291,7 +291,7 @@ public class VuelosPage extends BasePage {
         }
     }
 
-    public void validarFormDatosPersonalesYEquipaje() {
+    /*public void validarFormDatosPersonalesYEquipaje() {
 
     public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
@@ -303,7 +303,7 @@ public class VuelosPage extends BasePage {
 
     public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
-    }
+    }}*/
 
 
 }
