@@ -15,6 +15,7 @@ public class VuelosPage extends BasePage {
     By byBtnVuelosAEuropa = By.xpath(("//p[contains(text(),'Ver las ofertas')]"));
     By byBtnVuelosFinde = By.xpath(("//p[contains(text(),'Descubrir')]"));
     By byBtnVuelosNacionales = By.xpath(("//p[contains(text(),'Reserva ya')]"));
+    By byBtnVuelosFinDeSemana = By.xpath(("//p[contains(text(),'Descubrir')]"));
     By bybtnIdaVuelta = By.xpath("//button[contains(text(),'Ida y vuelta')]");
     By bybtnSoloIda = By.xpath("//button[contains(text(),'Solo ida')]");
     By byBtnLimpiar = By.xpath("//button[@aria-label='Limpiar']");
@@ -182,16 +183,16 @@ public class VuelosPage extends BasePage {
         clic(byBtnBuscar);
     }
 
-    public void validarCampoOrigen() {
+    public void validarCampoOrigen(String msjEsperado) {
         WebElement spanErrorOrigen = buscarElementoWeb(By.xpath("//span[contains(text(),'Introduce ciudad o aeropuerto de origen')]"));
         String msjErrorOrigen = obtenerTexto(spanErrorOrigen);
-        Assertions.assertEquals("Introduce ciudad o aeropuerto de origen", msjErrorOrigen);
+        Assertions.assertEquals(msjEsperado, msjErrorOrigen);
     }
 
-    public void validarCampoDestino() {
+    public void validarCampoDestino(String msjEsperado) {
         WebElement spanErrorDestino = buscarElementoWeb(By.xpath("//span[contains(text(),'Introduce ciudad o aeropuerto de destino')]"));
         String msjErrorDestino = obtenerTexto(spanErrorDestino);
-        Assertions.assertEquals("Introduce ciudad o aeropuerto de destino", msjErrorDestino);
+        Assertions.assertEquals(msjEsperado, msjErrorDestino);
     }
 
     public List<WebElement> obtenerResultadosVuelosBuscados() {
@@ -239,6 +240,9 @@ public class VuelosPage extends BasePage {
         Assertions.assertEquals(ruta, textoTituloCard);
     }
 
+    public String errorNombreDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
+    }
     public void vuelosDesplaza (){
         hacerScrollHastaCategoriaVuelos();
         esperarXsegundos(1700);
@@ -288,19 +292,16 @@ public class VuelosPage extends BasePage {
 
     public void validarFormDatosPersonalesYEquipaje() {
 
+    public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
     }
 
-    public void validarDatosDeContactoVacioFormDatosPersonalesYEquipaje() {
-        String msjErrorNombreContacto = obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
-        String msjErrorApellidoContacto = obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
-        String msjErrorEmailContacto = obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
-        String msjErrorTelefonoContacto = obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
+    public String errorEmailDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
+    }
 
-        Assertions.assertEquals("Introduce el nombre", msjErrorNombreContacto);
-        Assertions.assertEquals("Introduce el apellido", msjErrorApellidoContacto);
-        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un email válido"), msjErrorEmailContacto);
-        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un número de teléfono válido"), msjErrorTelefonoContacto);
-
+    public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
     }
 
 

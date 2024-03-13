@@ -1,0 +1,5 @@
+#variable=valor
+url=https://www.rumbo.es/
+rutaExcel= "Cambia este valor por tu ruta de excel local sin doble comillas y renombra este archivo a properties.properties"
+hojaExcel=DataPrueba
+tituloCPs=NombreCPs

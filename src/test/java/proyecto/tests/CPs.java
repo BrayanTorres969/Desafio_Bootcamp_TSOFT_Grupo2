@@ -10,6 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import proyecto.pages.HomePage;
 import proyecto.pages.VuelosPage;
+import proyecto.utils.DataDriven;
+import proyecto.utils.FixEncoding;
+import proyecto.utils.PropertiesManager;
+
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +25,7 @@ public class CPs {
     HomePage home;
     VuelosPage vuelosPage;
     WebDriver driver;
+    ArrayList<String> dataCPs; //null
 
     @BeforeAll
     public static void start() {
@@ -28,24 +34,30 @@ public class CPs {
 
     @BeforeEach
     public void preCondioniones() {
+        dataCPs = new ArrayList<String>(); //0
         driver = new ChromeDriver();
         home = new HomePage(driver);
-        home.cargarSitio("https://www.rumbo.es/");
+        home.cargarSitio(PropertiesManager.obtenerProperty("url"));
         home.maximizarBrowser();
         //Aceptar cookies
         home.aceptarCookies();
         home.esperarXsegundos(1000);
     }
 
-    /*@AfterEach
+    @AfterEach
     public void posCondiciones() {
         home.cerrarBrowser();
-    }*/
+    }
 
     @Test
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
 
+        dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
+        //Aceptar cookies
+        home.aceptarCookies();
+
+        home.esperarXsegundos(1000);
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
         vuelosPage.hacerScrollHastaCategoriaVuelos();
@@ -68,8 +80,8 @@ public class CPs {
         vuelosPage.buscarVuelos();
         vuelosPage.esperarXsegundos(3000);
         //Validar resultados
-        vuelosPage.validarCampoOrigen();
-        vuelosPage.validarCampoDestino();
+        vuelosPage.validarCampoOrigen(dataCPs.get(1));
+        vuelosPage.validarCampoDestino(dataCPs.get(2));
     }
 
     @Test
@@ -90,6 +102,9 @@ public class CPs {
     @Test
     public void TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos() {
 
+
+        dataCPs = DataDriven.prepararData("TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos");
+
         //Aceptar cookies
         home.aceptarCookies();
 
@@ -109,13 +124,13 @@ public class CPs {
             System.out.println(e);
         }
 
-        vuelosPage.ingresarOrigenVuelo("Valencia (VLC)");
+        vuelosPage.ingresarOrigenVuelo(dataCPs.get(1).trim());
         vuelosPage.esperarXsegundos(1000);
-        vuelosPage.ingresarDestinoVuelo("Madrid (MAD)");
+        vuelosPage.ingresarDestinoVuelo(dataCPs.get(2).trim());
         vuelosPage.esperarXsegundos(1000);
         vuelosPage.seleccionarCampoFechaDeIda();
         vuelosPage.esperarXsegundos(3000);
-        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='3-2024']//button[text()='15']");
+        vuelosPage.ingresarFechaDeIda(dataCPs.get(3));
         vuelosPage.esperarXsegundos(1000);
         vuelosPage.seleccionarCampoPasajeros();
         vuelosPage.esperarXsegundos(3000);
@@ -137,7 +152,7 @@ public class CPs {
             System.out.println("No hay resultados para esta búsqueda");
         }
         vuelosPage.esperarXsegundos(3000);
-        vuelosPage.validarRutaDetalleVuelo("Valencia", "Madrid");
+        vuelosPage.validarRutaDetalleVuelo(dataCPs.get(4).trim(), dataCPs.get(5).trim());
 
 
     }
@@ -170,6 +185,9 @@ public class CPs {
 
     @Test
     public void TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido() {
+
+        dataCPs = DataDriven.prepararData("TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido");
+
         //Aceptar cookies
         home.aceptarCookies();
 
@@ -183,16 +201,16 @@ public class CPs {
         vuelosPage.esperarXsegundos(1000);
         vuelosPage.seleccionarOpcionSoloIda();
         vuelosPage.esperarXsegundos(1000);
-        vuelosPage.ingresarOrigenVuelo("Lima (LIM)");
+        vuelosPage.ingresarOrigenVuelo(dataCPs.get(1).trim());
         vuelosPage.esperarXsegundos(1000);
-        vuelosPage.ingresarDestinoVuelo("Nueva York (JFK)");
+        vuelosPage.ingresarDestinoVuelo(dataCPs.get(2).trim());
         vuelosPage.esperarXsegundos(1000);
         vuelosPage.seleccionarCampoFechaDeIda();
         vuelosPage.esperarXsegundos(3000);
         vuelosPage.seleccionarSgteMes();
         vuelosPage.seleccionarSgteMes();
         vuelosPage.esperarXsegundos(3000);
-        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='5-2024']//button[text()='8']");
+        vuelosPage.ingresarFechaDeIda(dataCPs.get(3).trim());
         vuelosPage.esperarXsegundos(1000);
         vuelosPage.seleccionarCampoPasajeros();
         vuelosPage.seleccionarClaseVueloBusiness();
@@ -213,7 +231,7 @@ public class CPs {
 
         vuelosPage.esperarXsegundos(3000);
         vuelosPage.seleccionarVuelo();
-        vuelosPage.esperarXsegundos(15000);
+        vuelosPage.esperarXsegundos(20000);
         vuelosPage.seleccionarTarifaVueloClassic();
         vuelosPage.esperarXsegundos(3000);
         vuelosPage.seleccionarSgtFormReserva();
@@ -221,7 +239,11 @@ public class CPs {
         vuelosPage.volverInicioPagina();
         //Validar datos de contacto - Datos personales y equipaje
         vuelosPage.esperarXsegundos(1000);
-        vuelosPage.validarDatosDeContactoVacioFormDatosPersonalesYEquipaje();
+        //vuelosPage.validarDatosDeContactoVacioFormDatosPersonalesYEquipaje();
+        Assertions.assertEquals(dataCPs.get(4).trim(), vuelosPage.errorNombreDatosDeContactoFormDatosPersonalesYEquipaje());
+        Assertions.assertEquals(dataCPs.get(5).trim(), vuelosPage.errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje());
+        Assertions.assertEquals(dataCPs.get(6).trim(), vuelosPage.errorEmailDatosDeContactoFormDatosPersonalesYEquipaje());
+        Assertions.assertEquals(dataCPs.get(7).trim(), vuelosPage.errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje());
 
 
     }
