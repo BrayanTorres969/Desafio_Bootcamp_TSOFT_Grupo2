@@ -17,9 +17,6 @@ public class HomePage extends BasePage {
     By byFechaEntrada = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='16']");
     By byFechaSalida = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='18']");
     By byPersonas = By.xpath("//div[@class='d-1k5t2mm']//button[contains(@aria-label, 'Aumentar')]");
-    By byPibes = By.xpath("/html/body/div[13]/div[3]/div/div/section/div/div[2]/div[2]/div/button");
-    By byPibeEdad = By.xpath("/html/body/div[13]/div[3]/div/div/section/div/div[2]/div[2]/div/div/div/ul/li[8]");
-    By byConfirmar = By.xpath("/html/body/div[13]/div[3]/footer/div/button");
     By byBuscarHotel = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/div[3]/div/button");
 
     public HomePage(WebDriver driver) {
@@ -48,9 +45,6 @@ public class HomePage extends BasePage {
         for(int i=0;i<2;i++){
             clic(esperarElementoWeb(byPersonas));
         }
-        //clic(esperarElementoWeb(byPibes));
-        //clic(esperarElementoWeb(byPibeEdad));
-        //clic(esperarElementoWeb(byConfirmar));d
         clic(esperarElementoWeb(byBuscarHotel));
     }
 }

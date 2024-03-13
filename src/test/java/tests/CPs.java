@@ -1,5 +1,6 @@
 package tests;
 
+import pages.AlojamientoAlterPage;
 import pages.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class CPs {
     HomePage home;
+    AlojamientoAlterPage alterPage;
     WebDriver driver;
 
     @BeforeAll
@@ -22,13 +24,15 @@ public class CPs {
     public void preCondioniones(){
         driver = new ChromeDriver();
         home = new HomePage(driver);
+        alterPage = new AlojamientoAlterPage(driver);
+
         home.cargarSitio("https://rumbo.es/");
         home.maximizarBrowser();
     }
 
     @AfterEach
     public void posCondiciones(){
-        //home.cerrarBrowser();
+        home.cerrarBrowser();
     }
 
     @Test
@@ -41,6 +45,8 @@ public class CPs {
     public void CP002_Compartir_InfoCasa_Contacto(){
         home.aceptarCookies();
         home.buscarHoteles();
+        alterPage.seleccionarHotelAlternativo();
+
     }
 
 
