@@ -231,7 +231,7 @@ public class VuelosPage extends BasePage {
 
     public void ClickCheckbox () {
         clic(byBtnCheckboxEquipajeFactu);
-        //no funca
+        //no quiere funcionar
     }
 
     public void validarRutaDetalleVuelo(String origen, String destino) {
