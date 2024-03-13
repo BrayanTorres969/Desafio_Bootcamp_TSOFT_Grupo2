@@ -37,10 +37,10 @@ public class CPs {
         home.esperarXsegundos(1000);
     }
 
-    @AfterEach
+    /*@AfterEach
     public void posCondiciones() {
         home.cerrarBrowser();
-    }
+    }*/
 
     @Test
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
@@ -142,6 +142,31 @@ public class CPs {
 
     }
 
+    @Test
+    public void TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala(){
+        String dia ="15";
+        String diaSgt = "20";
+        home.irAVuelos();
+        vuelosPage = new VuelosPage(driver);
+        vuelosPage.vuelosDesplaza();
+        vuelosPage.limpiezaBusqueda();
+        vuelosPage.insertarValores("Lima", "Tokio");
+        vuelosPage.seleccionCamposIdayVuelta(dia, diaSgt);
+
+        vuelosPage.seleccionarCampoPasajeros();
+        vuelosPage.seleccionarCualquierClase();
+        vuelosPage.buscarVuelos();
+        vuelosPage.esperarXsegundos(15000);
+
+        vuelosPage.filtrarResultadoPorMasBarato();
+        vuelosPage.esperarXsegundos(10000);
+
+        vuelosPage.seleccionarCampoMetodoPago();
+        vuelosPage.filtrarResultadoMetodoPago();
+        vuelosPage.esperarXsegundos(4000);
+        vuelosPage.ClickCheckbox();
+        vuelosPage.esperarXsegundos(3000);
+    }
 
     @Test
     public void TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido() {
