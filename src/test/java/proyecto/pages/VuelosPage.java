@@ -24,13 +24,24 @@ public class VuelosPage extends BasePage {
     By byInputDestino = By.xpath("//input[@aria-label='Destino']");
     By byBtnBuscar = By.xpath("//button[@aria-label='Buscar']");
     By byBtnSgtMes = By.xpath("//button[@aria-label='Next month']");
+    By byBtnSgtClaseVuelo = By.xpath("//button[@class='d-128ddiu']");
     By byBtnAumentarNumAdultos = By.xpath(FixEncoding.corregirEncoding("//button[@aria-label='Aumentar el número de adultos']"));
     By byBtnClaseTurista = By.xpath("//button[@value='Y' and contains(text(),'Turista')]");
+    By byBtnClaseBusiness = By.xpath("//button[@value='C' and contains(text(),'Business')]");
     By byListaResuladosVuelos = By.xpath("//div[@data-e2e='trip-card']");
     By byTituloCompanias = By.xpath(FixEncoding.corregirEncoding("//h3[contains(text(),'Compañías')]"));
     By byBtnFiltrarResultadosPorVuelos = By.xpath("//button[@value='flights']");
+    By byBtnFiltrarResultadosVuelosPorMasRapido = By.xpath(FixEncoding.corregirEncoding("//li[@role='tab' and contains(@class, 'Tabs__ListElement')]/h5[contains(text(), 'Más rápido')]"));
     By byTituloCardDetallesVuelo = By.xpath("//h2[@class='Text__BaseText-sc-bargkg-0 chraKX']");
-
+    By byBtnSeleccionarVuelo = By.xpath("//button[contains(text(),'Seleccionar')]");
+    By byBtnTarifaVueloClassic = By.xpath("//button[contains(text(),'Elegir Classic')]");
+    By byTituloTarifaVuelo = By.xpath(FixEncoding.corregirEncoding("//h4[contains(text(),'Viaja con más flexibilidad')]"));
+    By byBtnSgtFormDeReservaVuelo = By.xpath("//button[contains(@class, 'lead-generation-submit__btn-revamped-cta') and contains(text(), 'Siguiente')]");
+    //Localizadores del formulario de Datos personales y equipaje
+    By byErrorInputNombreDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el nombre')]");
+    By byErrorInputApellidoDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el apellido')]");
+    By byErrorInputEmailDatosDeContacto = By.xpath(FixEncoding.corregirEncoding("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce un email válido')]"));
+    By byErrorInputTelefonoDatosDeContacto = By.xpath(FixEncoding.corregirEncoding("//div[contains(@class, 'widget-wrapper--contact')]//div[@data-testid='next-phone-input-group-errormessage' and contains(text(),'Introduce un número de teléfono válido')]"));
     List<WebElement> tripCards;
 
     public VuelosPage(WebDriver driver) {
@@ -67,12 +78,20 @@ public class VuelosPage extends BasePage {
         clic(byInputFechaDeVuelta);
     }
 
+    public void seleccionarCampoFechaDeVuelta() {
+        clic(byInputFechaDeVuelta);
+    }
+
     public void seleccionarCampoPasajeros() {
         clic(byInputPersonas);
     }
 
     public void seleccionarSgteMes() {
         clic(byBtnSgtMes);
+    }
+
+    public void seleccionarVuelo() {
+        clic(byBtnSeleccionarVuelo);
     }
 
     public void aumentarNumPasajerosAdultos() {
@@ -108,6 +127,7 @@ public class VuelosPage extends BasePage {
         WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
         clic(fechaSeleccionada);
     }
+
     public void ingresarFechaDeVuelta(String rutaXpath) {
         WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
         clic(fechaSeleccionada);
@@ -116,6 +136,28 @@ public class VuelosPage extends BasePage {
     public void seleccionarClaseVueloTurista() {
         seleccionarCampoPasajeros();
         clic(byBtnClaseTurista);
+    }
+
+    public void seleccionarClaseVueloBusiness() {
+        seleccionarCampoPasajeros();
+        clic(byBtnSgtClaseVuelo);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        clic(byBtnClaseBusiness);
+
+    }
+
+    public void seleccionarTarifaVueloClassic() {
+        hacerScrollHasta(buscarElementoWeb(byTituloTarifaVuelo));
+        clic(byBtnTarifaVueloClassic);
+    }
+
+    public void seleccionarSgtFormReserva() {
+        hacerScrollHasta(buscarElementoWeb(byBtnSgtFormDeReservaVuelo));
+        clic(byBtnSgtFormDeReservaVuelo);
     }
 
 
@@ -148,6 +190,14 @@ public class VuelosPage extends BasePage {
     public void filtrarResultadosPorVuelo() {
         hacerScrollHasta(buscarElementoWeb(byTituloCompanias));
         clic(byBtnFiltrarResultadosPorVuelos);
+    }
+
+    public void filtrarResultadosVuelosPorMasRapido() {
+        clic(byBtnFiltrarResultadosVuelosPorMasRapido);
+    }
+
+    public void filtrarResultadosPorMasRapido() {
+        clic(byBtnFiltrarResultadosVuelosPorMasRapido);
     }
 
     public void validarRutaDetalleVuelo(String origen, String destino) {
@@ -209,6 +259,23 @@ public class VuelosPage extends BasePage {
 
 
 
+
+    public void validarFormDatosPersonalesYEquipaje() {
+
+    }
+
+    public void validarDatosDeContactoVacioFormDatosPersonalesYEquipaje() {
+        String msjErrorNombreContacto = obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
+        String msjErrorApellidoContacto = obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
+        String msjErrorEmailContacto = obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
+        String msjErrorTelefonoContacto = obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
+
+        Assertions.assertEquals("Introduce el nombre", msjErrorNombreContacto);
+        Assertions.assertEquals("Introduce el apellido", msjErrorApellidoContacto);
+        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un email válido"), msjErrorEmailContacto);
+        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un número de teléfono válido"), msjErrorTelefonoContacto);
+
+    }
 
 
 }

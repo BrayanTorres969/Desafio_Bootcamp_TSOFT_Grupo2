@@ -141,4 +141,63 @@ public class CPs {
 
 
     }
+
+
+    @Test
+    public void TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido() {
+        //Aceptar cookies
+        home.aceptarCookies();
+
+        home.esperarXsegundos(1000);
+        home.irAVuelos();
+        vuelosPage = new VuelosPage(driver);
+        vuelosPage.hacerScrollHastaCategoriaVuelos();
+        vuelosPage.irAVuelosFinDeSemana();
+        vuelosPage.esperarXsegundos(5000);
+        vuelosPage.cambiarALaUltimaVentanaAbierta();
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarOpcionSoloIda();
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.ingresarOrigenVuelo("Lima (LIM)");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.ingresarDestinoVuelo("Nueva York (JFK)");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarCampoFechaDeIda();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.seleccionarSgteMes();
+        vuelosPage.seleccionarSgteMes();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='5-2024']//button[text()='8']");
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.seleccionarCampoPasajeros();
+        vuelosPage.seleccionarClaseVueloBusiness();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.buscarVuelos();
+
+        vuelosPage.esperarXsegundos(12000);
+        vuelosPage.filtrarResultadosPorMasRapido();
+        vuelosPage.esperarXsegundos(5000);
+
+        //ingresar al primer trip card
+        if (!vuelosPage.obtenerResultadosVuelosBuscados().isEmpty()) {
+            vuelosPage.esperarXsegundos(3000);
+            vuelosPage.seleccionarPrimerResultadoDeBusqueda();
+        } else {
+            System.out.println("No hay resultados para esta búsqueda");
+        }
+
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.seleccionarVuelo();
+        vuelosPage.esperarXsegundos(15000);
+        vuelosPage.seleccionarTarifaVueloClassic();
+        vuelosPage.esperarXsegundos(3000);
+        vuelosPage.seleccionarSgtFormReserva();
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.volverInicioPagina();
+        //Validar datos de contacto - Datos personales y equipaje
+        vuelosPage.esperarXsegundos(1000);
+        vuelosPage.validarDatosDeContactoVacioFormDatosPersonalesYEquipaje();
+
+
+    }
 }
