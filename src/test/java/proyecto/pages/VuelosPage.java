@@ -159,10 +159,11 @@ public class VuelosPage extends BasePage {
 
     public void vuelosDesplaza (){
         hacerScrollHastaCategoriaVuelos();
+        esperarXsegundos(1700);
         irAVuelosFinde();
         esperarXsegundos(1500);
         cambiarALaUltimaVentanaAbierta();
-        esperarXsegundos(500);
+        esperarXsegundos(1500);
     }
 
     public void insertarValores (String ori, String desti){
@@ -173,11 +174,15 @@ public class VuelosPage extends BasePage {
     }
 
     public void ResultadosTC2(){
-        if (!obtenerResultadosVuelosBuscados().isEmpty()) {
+
+        buscarVuelos();
+        esperarXsegundos(10000);
+
+        if (obtenerResultadosVuelosBuscados().isEmpty()) {
             esperarXsegundos(3000);
-            System.out.println("No hay resultados para esta búsqueda");
+            System.out.println("No hay resultados para esta busqueda");
         } else {
-            System.out.println("Hay resultados para esta búsqueda");
+            System.out.println("Hay resultados para esta busqueda");
         }
     }
 

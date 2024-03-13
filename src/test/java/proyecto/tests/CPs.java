@@ -73,14 +73,14 @@ public class CPs {
     }
 
     @Test
-    public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
-
-
-
+    public void Tc002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
+        LocalDate fecha = LocalDate.now();
+        String dia = fecha.format(DateTimeFormatter.ofPattern("dd"));
+        int diaMna = Integer.parseInt(dia) + 1;
+        String diaSgt = String.valueOf(diaMna);
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
         vuelosPage.vuelosDesplaza();
-
         try {
             vuelosPage.limpiarValorOrigenPorDefecto();
         } catch (InterruptedException e) {
@@ -89,19 +89,14 @@ public class CPs {
 
         vuelosPage.insertarValores("Lima", "Tokio");
         vuelosPage.seleccionarCampoFechaDeVuelta();
-        vuelosPage.esperarXsegundos(2500);
+        vuelosPage.esperarXsegundos(1000);
 
-        LocalDate fecha = LocalDate.now();
-        String dia = fecha.format(DateTimeFormatter.ofPattern("dd"));;
-        int diaMna = Integer.parseInt(dia) + 1;
-        String diaSgt = String.valueOf(diaMna);
-
-
+        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='2-2024']//button[text()='" + dia + "']");
+        vuelosPage.esperarXsegundos(1000);
         vuelosPage.ingresarFechaDeVuelta("//div[@aria-labelledby='2-2024']//button[text()='" + diaSgt + "']");
-        vuelosPage.esperarXsegundos(1500);
-        vuelosPage.buscarVuelos();
-        vuelosPage.ResultadosTC2();
         vuelosPage.esperarXsegundos(3000);
+
+        vuelosPage.ResultadosTC2();
     }
 
     @Test
