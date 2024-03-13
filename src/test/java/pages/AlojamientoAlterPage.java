@@ -5,8 +5,9 @@ import org.openqa.selenium.WebDriver;
 import utils.BasePage;
 
 public class AlojamientoAlterPage extends BasePage {
-    By byHotelAlternativo = By.xpath("//div[@class='openx-ui-card-details-desk']//div[@class='sc-djVXDX fFfrWf openx-ui-card-details-left openx-ui-card-details-left-expand']");
-    By ur = By.xpath("//div[@class='sc-CCtys izSLPp']//a[@class='sc-ggqIjW YqstO openx-ui-card openx-ui-card-appending openx-ui-tile-2']");
+    int numLista = 1;
+    By ur = By.xpath("//a[contains(@class, 'openx-ui-tile-"+numLista+"') and substring(@class, string-length(@class) - string-length('openx-ui-tile-"+numLista+"') + 1) = 'openx-ui-tile-"+numLista+"']");
+    By cards = By.xpath("//div[contains(@data-testid,'card-container')]");
 
     public AlojamientoAlterPage(WebDriver driver) {
         super(driver);
@@ -16,6 +17,9 @@ public class AlojamientoAlterPage extends BasePage {
         //clic(esperarElementoWeb(byHotelAlternativo));
 
         cargarSitio(buscarElementoWeb(ur).getAttribute("href"));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(buscarElementosWeb(cards).get(0)));
+        esperarXsegundos(2000);
     }
 
 

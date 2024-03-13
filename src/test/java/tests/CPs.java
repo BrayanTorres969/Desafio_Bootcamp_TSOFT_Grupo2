@@ -49,5 +49,21 @@ public class CPs {
 
     }
 
+    @Test
+    public void CP003_Compartir_InfoCasa_Contacto(){
+        home.aceptarCookies();
+        home.buscarHoteles();
+        alterPage.seleccionarHotelAlternativo();
+
+    }
+
+    @Test
+    public void CP004_Compartir_InfoCasa_Contacto(){
+        home.aceptarCookies();
+        home.buscarHoteles();
+        alterPage.seleccionarHotelAlternativo();
+
+    }
+
 
 }

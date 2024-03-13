@@ -30,6 +30,11 @@ public class BasePage {
         return driver.findElement(localizador);
     }
 
+    public List<WebElement> buscarElementosWeb(By localizador){
+        return driver.findElements(localizador);
+    }
+
+
     public void clic(By localizador){
         driver.findElement(localizador).click();
     }
@@ -49,6 +54,11 @@ public class BasePage {
     public WebElement esperarElementoWeb(By localizador){
         espera = new WebDriverWait(this.driver,30);
         return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
+
+    public WebElement esperarElementoWeb(WebElement elemento){
+        espera = new WebDriverWait(this.driver,30);
+        return espera.until(ExpectedConditions.visibilityOf(elemento));
     }
 
     public List<WebElement> esperarElementosWeb(By localizador){
