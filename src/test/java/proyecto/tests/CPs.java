@@ -81,22 +81,10 @@ public class CPs {
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
         vuelosPage.vuelosDesplaza();
-        try {
-            vuelosPage.limpiarValorOrigenPorDefecto();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        vuelosPage.limpiezaBusqueda();
         vuelosPage.insertarValores("Lima", "Tokio");
-        vuelosPage.seleccionarCampoFechaDeVuelta();
-        vuelosPage.esperarXsegundos(1000);
-
-        vuelosPage.ingresarFechaDeIda("//div[@aria-labelledby='2-2024']//button[text()='" + dia + "']");
-        vuelosPage.esperarXsegundos(1000);
-        vuelosPage.ingresarFechaDeVuelta("//div[@aria-labelledby='2-2024']//button[text()='" + diaSgt + "']");
-        vuelosPage.esperarXsegundos(3000);
-
-        vuelosPage.ResultadosTC2();
+        vuelosPage.seleccionCamposIdayVuelta(dia, diaSgt);
+        vuelosPage.resultadosTC2();
     }
 
     @Test

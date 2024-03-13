@@ -166,6 +166,14 @@ public class VuelosPage extends BasePage {
         esperarXsegundos(1500);
     }
 
+    public void limpiezaBusqueda (){
+        try {
+            limpiarValorOrigenPorDefecto();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void insertarValores (String ori, String desti){
         ingresarOrigenVuelo(ori);
         esperarXsegundos(1000);
@@ -173,7 +181,19 @@ public class VuelosPage extends BasePage {
         esperarXsegundos(1000);
     }
 
-    public void ResultadosTC2(){
+    public void seleccionCamposIdayVuelta(String dia, String diaSgt){
+        seleccionarCampoFechaDeIda();
+        esperarXsegundos(500);
+        ingresarFechaDeIda("//div[@aria-labelledby='2-2024']//button[text()='" + dia + "']");
+        esperarXsegundos(1000);
+        seleccionarCampoFechaDeVuelta();
+        esperarXsegundos(500);
+        ingresarFechaDeVuelta("//div[@aria-labelledby='2-2024']//button[text()='" + diaSgt + "']");
+        esperarXsegundos(1000);
+    }
+
+
+    public void resultadosTC2(){
 
         buscarVuelos();
         esperarXsegundos(10000);
@@ -185,6 +205,10 @@ public class VuelosPage extends BasePage {
             System.out.println("Hay resultados para esta busqueda");
         }
     }
+
+
+
+
 
 
 }
