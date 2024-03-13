@@ -97,6 +97,7 @@ public class CPs {
         vuelosPage.insertarValores("Lima", "Tokio");
         vuelosPage.seleccionCamposIdayVuelta(dia, diaSgt);
         vuelosPage.resultadosTC2();
+        //Fin
     }
 
     @Test
