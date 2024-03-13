@@ -164,16 +164,16 @@ public class VuelosPage extends BasePage {
         clic(byBtnBuscar);
     }
 
-    public void validarCampoOrigen() {
+    public void validarCampoOrigen(String msjEsperado) {
         WebElement spanErrorOrigen = buscarElementoWeb(By.xpath("//span[contains(text(),'Introduce ciudad o aeropuerto de origen')]"));
         String msjErrorOrigen = obtenerTexto(spanErrorOrigen);
-        Assertions.assertEquals("Introduce ciudad o aeropuerto de origen", msjErrorOrigen);
+        Assertions.assertEquals(msjEsperado, msjErrorOrigen);
     }
 
-    public void validarCampoDestino() {
+    public void validarCampoDestino(String msjEsperado) {
         WebElement spanErrorDestino = buscarElementoWeb(By.xpath("//span[contains(text(),'Introduce ciudad o aeropuerto de destino')]"));
         String msjErrorDestino = obtenerTexto(spanErrorDestino);
-        Assertions.assertEquals("Introduce ciudad o aeropuerto de destino", msjErrorDestino);
+        Assertions.assertEquals(msjEsperado, msjErrorDestino);
     }
 
     public List<WebElement> obtenerResultadosVuelosBuscados() {
@@ -205,21 +205,20 @@ public class VuelosPage extends BasePage {
         Assertions.assertEquals(ruta, textoTituloCard);
     }
 
-    public void validarFormDatosPersonalesYEquipaje() {
-
+    public String errorNombreDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
     }
 
-    public void validarDatosDeContactoVacioFormDatosPersonalesYEquipaje() {
-        String msjErrorNombreContacto = obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
-        String msjErrorApellidoContacto = obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
-        String msjErrorEmailContacto = obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
-        String msjErrorTelefonoContacto = obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
+    public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
+    }
 
-        Assertions.assertEquals("Introduce el nombre", msjErrorNombreContacto);
-        Assertions.assertEquals("Introduce el apellido", msjErrorApellidoContacto);
-        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un email válido"), msjErrorEmailContacto);
-        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un número de teléfono válido"), msjErrorTelefonoContacto);
+    public String errorEmailDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
+    }
 
+    public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
+        return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
     }
 
 
