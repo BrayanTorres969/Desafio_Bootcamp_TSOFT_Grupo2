@@ -38,7 +38,10 @@ public class VuelosPage extends BasePage {
     By byTituloTarifaVuelo = By.xpath(FixEncoding.corregirEncoding("//h4[contains(text(),'Viaja con más flexibilidad')]"));
     By byBtnSgtFormDeReservaVuelo = By.xpath("//button[contains(@class, 'lead-generation-submit__btn-revamped-cta') and contains(text(), 'Siguiente')]");
     //Localizadores del formulario de Datos personales y equipaje
-    //By byInputNombreDatosDeContacto =
+    By byErrorInputNombreDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el nombre')]");
+    By byErrorInputApellidoDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el apellido')]");
+    By byErrorInputEmailDatosDeContacto = By.xpath(FixEncoding.corregirEncoding("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce un email válido')]"));
+    By byErrorInputTelefonoDatosDeContacto = By.xpath(FixEncoding.corregirEncoding("//div[contains(@class, 'widget-wrapper--contact')]//div[@data-testid='next-phone-input-group-errormessage' and contains(text(),'Introduce un número de teléfono válido')]"));
     List<WebElement> tripCards;
 
     public VuelosPage(WebDriver driver) {
@@ -203,6 +206,19 @@ public class VuelosPage extends BasePage {
     }
 
     public void validarFormDatosPersonalesYEquipaje() {
+
+    }
+
+    public void validarDatosDeContactoVacioFormDatosPersonalesYEquipaje() {
+        String msjErrorNombreContacto = obtenerTexto(buscarElementoWeb(byErrorInputNombreDatosDeContacto));
+        String msjErrorApellidoContacto = obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
+        String msjErrorEmailContacto = obtenerTexto(buscarElementoWeb(byErrorInputEmailDatosDeContacto));
+        String msjErrorTelefonoContacto = obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
+
+        Assertions.assertEquals("Introduce el nombre", msjErrorNombreContacto);
+        Assertions.assertEquals("Introduce el apellido", msjErrorApellidoContacto);
+        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un email válido"), msjErrorEmailContacto);
+        Assertions.assertEquals(FixEncoding.corregirEncoding("Introduce un número de teléfono válido"), msjErrorTelefonoContacto);
 
     }
 
