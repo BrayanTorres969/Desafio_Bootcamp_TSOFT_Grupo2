@@ -11,6 +11,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import proyecto.pages.HomePage;
 import proyecto.pages.VuelosPage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class CPs {
 
     HomePage home;
@@ -28,6 +32,9 @@ public class CPs {
         home = new HomePage(driver);
         home.cargarSitio("https://www.rumbo.es/");
         home.maximizarBrowser();
+        //Aceptar cookies
+        home.aceptarCookies();
+        home.esperarXsegundos(1000);
     }
 
     @AfterEach
@@ -37,10 +44,8 @@ public class CPs {
 
     @Test
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
-        //Aceptar cookies
-        home.aceptarCookies();
 
-        home.esperarXsegundos(1000);
+
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
         vuelosPage.hacerScrollHastaCategoriaVuelos();
@@ -65,6 +70,38 @@ public class CPs {
         //Validar resultados
         vuelosPage.validarCampoOrigen();
         vuelosPage.validarCampoDestino();
+    }
+
+    @Test
+    public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
+
+
+
+        home.irAVuelos();
+        vuelosPage = new VuelosPage(driver);
+        vuelosPage.vuelosDesplaza();
+
+        try {
+            vuelosPage.limpiarValorOrigenPorDefecto();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        vuelosPage.insertarValores("Lima", "Tokio");
+        vuelosPage.seleccionarCampoFechaDeVuelta();
+        vuelosPage.esperarXsegundos(2500);
+
+        LocalDate fecha = LocalDate.now();
+        String dia = fecha.format(DateTimeFormatter.ofPattern("dd"));;
+        int diaMna = Integer.parseInt(dia) + 1;
+        String diaSgt = String.valueOf(diaMna);
+
+
+        vuelosPage.ingresarFechaDeVuelta("//div[@aria-labelledby='2-2024']//button[text()='" + diaSgt + "']");
+        vuelosPage.esperarXsegundos(1500);
+        vuelosPage.buscarVuelos();
+        vuelosPage.ResultadosTC2();
+        vuelosPage.esperarXsegundos(3000);
     }
 
     @Test

@@ -12,12 +12,14 @@ import java.util.List;
 public class VuelosPage extends BasePage {
     By byCardCategoriaVuelos = By.xpath("//span[contains(text(),'Vuelos baratos a tu destino favorito')]");
     By byBtnVuelosAEuropa = By.xpath(("//p[contains(text(),'Ver las ofertas')]"));
+    By byBtnVuelosFinde = By.xpath(("//p[contains(text(),'Descubrir')]"));
     By byBtnVuelosNacionales = By.xpath(("//p[contains(text(),'Reserva ya')]"));
     By bybtnIdaVuelta = By.xpath("//button[contains(text(),'Ida y vuelta')]");
     By bybtnSoloIda = By.xpath("//button[contains(text(),'Solo ida')]");
     By byBtnLimpiar = By.xpath("//button[@aria-label='Limpiar']");
     By byInputOrigen = By.xpath("//input[@aria-label='Origen']");
     By byInputFechaDeIda = By.xpath("//button[@aria-label='Fecha de ida']");
+    By byInputFechaDeVuelta = By.xpath("//button[@aria-label='Fecha de vuelta']");
     By byInputPersonas = By.xpath("//label[contains(text(),'Pasajeros y clase del vuelo')]");
     By byInputDestino = By.xpath("//input[@aria-label='Destino']");
     By byBtnBuscar = By.xpath("//button[@aria-label='Buscar']");
@@ -42,6 +44,9 @@ public class VuelosPage extends BasePage {
     public void irAVuelosAEuropa() {
         clic(byBtnVuelosAEuropa);
     }
+    public void irAVuelosFinde() {
+        clic(byBtnVuelosFinde);
+    }
 
     public void irAVuelosNacionales() {
         clic(byBtnVuelosNacionales);
@@ -57,6 +62,9 @@ public class VuelosPage extends BasePage {
 
     public void seleccionarCampoFechaDeIda() {
         clic(byInputFechaDeIda);
+    }
+    public void seleccionarCampoFechaDeVuelta() {
+        clic(byInputFechaDeVuelta);
     }
 
     public void seleccionarCampoPasajeros() {
@@ -97,6 +105,10 @@ public class VuelosPage extends BasePage {
     }
 
     public void ingresarFechaDeIda(String rutaXpath) {
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
+    }
+    public void ingresarFechaDeVuelta(String rutaXpath) {
         WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
         clic(fechaSeleccionada);
     }
@@ -143,6 +155,30 @@ public class VuelosPage extends BasePage {
         String textoTituloCard = obtenerTexto(elemntoTituloCard);
         String ruta = origen + " - " + destino;
         Assertions.assertEquals(ruta, textoTituloCard);
+    }
+
+    public void vuelosDesplaza (){
+        hacerScrollHastaCategoriaVuelos();
+        irAVuelosFinde();
+        esperarXsegundos(1500);
+        cambiarALaUltimaVentanaAbierta();
+        esperarXsegundos(500);
+    }
+
+    public void insertarValores (String ori, String desti){
+        ingresarOrigenVuelo(ori);
+        esperarXsegundos(1000);
+        ingresarDestinoVuelo(desti);
+        esperarXsegundos(1000);
+    }
+
+    public void ResultadosTC2(){
+        if (!obtenerResultadosVuelosBuscados().isEmpty()) {
+            esperarXsegundos(3000);
+            System.out.println("No hay resultados para esta búsqueda");
+        } else {
+            System.out.println("Hay resultados para esta búsqueda");
+        }
     }
 
 
