@@ -2,6 +2,7 @@ package proyecto.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import proyecto.utils.BasePage;
 import proyecto.utils.FixEncoding;
 
@@ -51,27 +52,31 @@ public class TrenesPage extends BasePage {
         clic(byBtnIdaYVuelta);
     }
 
-    public void seleccionarLugarDeOrigen(){
+    public void seleccionarLugarDeOrigen(String lugarOrigen){
         clic(byTxtOrigen);
-        agregarTexto(byTxtOrigen,"Alicante");
+        agregarTexto(byTxtOrigen,lugarOrigen);
     }
 
-    public void seleccionarLugarDeDestino(){
+    public void seleccionarLugarDeDestino(String lugarDestino){
         clic(byTxtDestino);
         esperarXsegundos(1000);
-        agregarTexto(byTxtDestino,"Madrid");
+        agregarTexto(byTxtDestino,lugarDestino);
     }
 
     public void seleccionarFechaIdaTren(){
         clic(byFechaIda);
     }
 
-    public void seleccionarFechaEnCalendarioIdaTren(){
-        clic(byCalendarioIda);
+    public void seleccionarFechaEnCalendarioIdaTren(String rutaXpath){
+        //clic(byCalendarioIda);
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
     }
 
-    public void seleccionarFechaEnCalendarioVueltaTren(){
-        clic(byCalendarioVuelta);
+    public void seleccionarFechaEnCalendarioVueltaTren(String rutaXpath){
+        //clic(byCalendarioVuelta);
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
     }
 
     public void aumentarNumeroDePasajero(){
@@ -104,25 +109,26 @@ public class TrenesPage extends BasePage {
         clic(byBtnSeleccionarTren);
     }
 
-    public void datosDelPasajero(){
+    public void datosDelPasajero(String nombre, String apellido, String dia,String rutaXpath, String anio, String DNI){
         hacerScrollHasta(buscarElementoWeb(bydatosPasajeros));
         esperarXsegundos(1000);
         clic(byselectSr);
         esperarXsegundos(1000);
         clic(bynombrePasajero);
-        agregarTexto(bynombrePasajero,"Dylan");
+        agregarTexto(bynombrePasajero,nombre);
         clic(byapellidoPasajero);
-        agregarTexto(byapellidoPasajero,"Huarcaya");
+        agregarTexto(byapellidoPasajero,apellido);
         esperarXsegundos(1000);
-        agregarTexto(bydiaPasajero,"16");
+        agregarTexto(bydiaPasajero,dia);
         clic(bymesPasajero);
         esperarXsegundos(1000);
-        clic(bymesEnero);
-        agregarTexto(byanioPasajero,"2003");
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
+        agregarTexto(byanioPasajero,anio);
         clic(byBtnTipoDeDocumento);
         esperarXsegundos(1000);
         clic(byBtnDNI);
-        agregarTexto(byNumDNI,"65004204V");
+        agregarTexto(byNumDNI,DNI);
 
 
     }

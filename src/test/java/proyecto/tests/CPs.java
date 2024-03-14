@@ -270,6 +270,8 @@ public class CPs {
     @Test
     public void TC007_BusquedaDeTrenes_SoloIda() {
 
+        dataCPs = DataDriven.prepararData("TC007_BusquedaDeTrenes_SoloIda");
+
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -278,26 +280,30 @@ public class CPs {
         trenesPage.seleccionarOpcionSoloIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.seleccionarLugarDeOrigen(dataCPs.get(1).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.seleccionarLugarDeDestino(dataCPs.get(2).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.seleccionarFechaIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.seleccionarFechaEnCalendarioIdaTren(dataCPs.get(3).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.aumentarNumeroDePasajero();
 
         trenesPage.buscarTrenIda();
+        trenesPage.esperarXsegundos(4000);
 
     }
 
     @Test
     public void TC008_BusquedaDeTrenes_IdaYVuelta() {
+
+        dataCPs = DataDriven.prepararData("TC008_BusquedaDeTrenes_IdaYVuelta");
+
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -306,28 +312,32 @@ public class CPs {
         trenesPage.seleccionarOpcionIdaYVueltaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.seleccionarLugarDeOrigen(dataCPs.get(1).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.seleccionarLugarDeDestino(dataCPs.get(2).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.seleccionarFechaIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.seleccionarFechaEnCalendarioIdaTren(dataCPs.get(3).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren(dataCPs.get(4).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.aumentarNumeroDePasajero();
 
         trenesPage.buscarTrenIda();
+        trenesPage.esperarXsegundos(4000);
     }
 
     @Test
     public void TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo() {
+
+        dataCPs = DataDriven.prepararData("TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo");
+
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -336,19 +346,19 @@ public class CPs {
         trenesPage.seleccionarOpcionIdaYVueltaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.seleccionarLugarDeOrigen(dataCPs.get(1).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.seleccionarLugarDeDestino(dataCPs.get(2).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.seleccionarFechaIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.seleccionarFechaEnCalendarioIdaTren(dataCPs.get(3).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren(dataCPs.get(4).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.aumentarNumeroDePasajero();
@@ -368,6 +378,9 @@ public class CPs {
 
     @Test
     public void TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida() {
+
+        dataCPs = DataDriven.prepararData("TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida");
+
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -376,19 +389,19 @@ public class CPs {
         trenesPage.seleccionarOpcionIdaYVueltaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.seleccionarLugarDeOrigen(dataCPs.get(1).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.seleccionarLugarDeDestino(dataCPs.get(2).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.seleccionarFechaIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.seleccionarFechaEnCalendarioIdaTren(dataCPs.get(3).trim());
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren(dataCPs.get(4).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.reducirNumeroDePasajero();
@@ -402,7 +415,7 @@ public class CPs {
         trenesPage.seleccionarPrimerTren();
         trenesPage.esperarXsegundos(4000);
 
-        trenesPage.datosDelPasajero();
+        trenesPage.datosDelPasajero(dataCPs.get(5).trim(),dataCPs.get(6).trim(),dataCPs.get(7).trim(),dataCPs.get(8).trim(),dataCPs.get(9).trim(),dataCPs.get(10).trim());
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.seleccionarAsistenciaEspecial();
