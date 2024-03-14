@@ -254,7 +254,7 @@ public class CPs {
     }
 
     @Test
-    public void CP007_BuscarTrenSoloIda(){
+    public void TC007_BusquedaDeTrenes_SoloIda(){
 
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
@@ -273,13 +273,82 @@ public class CPs {
         trenesPage.seleccionarFechaIdaTren();
         trenesPage.esperarXsegundos(1000);
 
-        trenesPage.seleccionarFechaEnCalendarioTren();
+        trenesPage.seleccionarFechaEnCalendarioIdaTren();
         trenesPage.esperarXsegundos(1000);
 
         trenesPage.aumentarNumeroDePasajero();
 
         trenesPage.buscarTrenIda();
 
+    }
+
+    @Test
+    public void TC008_BusquedaDeTrenes_IdaYVuelta(){
+        home.irATrenes();
+        trenesPage = new TrenesPage(driver);
+
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarOpcionIdaYVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.aumentarNumeroDePasajero();
+
+        trenesPage.buscarTrenIda();
+    }
+
+    @Test
+    public void TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo(){
+        home.irATrenes();
+        trenesPage = new TrenesPage(driver);
+
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarOpcionIdaYVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.aumentarNumeroDePasajero();
+
+        trenesPage.buscarTrenIda();
+        trenesPage.esperarXsegundos(5000);
+
+        trenesPage.seleccionarMasRapidoTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarIdaYVueltaAlMismoAeropuerto();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarPrimerTren();
 
     }
 
