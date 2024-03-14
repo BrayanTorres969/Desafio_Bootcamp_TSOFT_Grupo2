@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import proyecto.pages.AlojamientoAlterPage;
 import proyecto.pages.HomePage;
+import proyecto.pages.HotelPage;
+import proyecto.pages.MultidestinoPage;
+import proyecto.pages.TrenHotelPage;
 import proyecto.pages.TrenesPage;
 import proyecto.pages.VuelosPage;
 import proyecto.utils.DataDriven;
@@ -22,6 +25,9 @@ import java.util.Date;
 public class CPs {
 
     HomePage home;
+    MultidestinoPage multidestino;
+    TrenHotelPage trenHotel;
+    HotelPage hotelPage;
     VuelosPage vuelosPage;
     TrenesPage trenesPage;
     WebDriver driver;
@@ -51,8 +57,40 @@ public class CPs {
     }
 
     @Test
-    public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
+    public void TC006_Busqueda_Vuelos_Multidestino() {
+        home.irAMultidestino();
+        home.cambiarALaUltimaVentanaAbierta();
+        multidestino = new MultidestinoPage(driver);
+        multidestino.ejecutador_TC006("Madrid", "Barcelona", "Cuzco", "Lima",
+                "No hay resultados para esta búsqueda");
+    }
 
+    @Test
+    public void TC011_Busqueda_TrenXHotel_RangoPrecios() {
+        home.irATrenHotel();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        trenHotel = new TrenHotelPage(driver);
+        trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
+    }
+
+    @Test
+    public void T015_Busqueda_HotelesCasa_RangoPrecios(){
+        home.irAHotelCasa();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        hotelPage = new HotelPage(driver);
+        hotelPage.ejecutador_T015("Andorra", "5 resultados encontrados para 18 mar - 20 mar");
+    }
+
+    @Test
+    public void T017_Busqueda_HotelesEsqui_VariosFiltrosDeUna(){
+        home.irAHotelEsqui();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        hotelPage = new HotelPage(driver);
+        hotelPage.ejecutador_T017("Andorra la Vella", "4 resultados encontrados para 18 mar - 10 abr");
+    }
+
+    @Test
+    public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
         //Aceptar cookies

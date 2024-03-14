@@ -1,5 +1,7 @@
 package proyecto.utils;
 
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,11 +18,52 @@ public class BasePage {
     private WebDriver driver;
     private WebDriverWait espera;
     private JavascriptExecutor js;
+    private Actions actions;
 
+    private int tiempoCortoEspera = 1000;
+    private int tiempoMedioEspera = 3000;
+    private int tiempoLargoEspera = 5000;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.js = (JavascriptExecutor) driver;
+        this.actions = new Actions(getDriver());
+    }
+
+    public int getTiempoCortoEspera() {
+        return tiempoCortoEspera;
+    }
+
+    public int getTiempoMedioEspera() {
+        return tiempoMedioEspera;
+    }
+
+    public int getTiempoLargoEspera() {
+        return tiempoLargoEspera;
+    }
+
+    public WebDriverWait getEspera() {
+        return espera;
+    }
+
+    public void setEspera(WebDriverWait espera) {
+        this.espera = espera;
+    }
+
+    public JavascriptExecutor getJs() {
+        return js;
+    }
+
+    public void setJs(JavascriptExecutor js) {
+        this.js = js;
+    }
+
+    public Actions getActions() {
+        return actions;
+    }
+
+    public void setActions(Actions actions) {
+        this.actions = actions;
     }
 
     public WebDriver getDriver() {
@@ -97,6 +140,13 @@ public class BasePage {
         js.executeScript("arguments[0].scrollIntoView();", elemento);
     }
 
+    public void hacerScrollHastaPiePagina() {
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    }
+
+    public void hacerScrollTopPagina(){
+        js.executeScript("window.scrollTo(0, 0);");
+    }
     public void volverInicioPagina() {
         js.executeScript("window.scrollTo(0, 0);");
     }
@@ -107,6 +157,47 @@ public class BasePage {
         for (String ventana : ventanas) {
             driver.switchTo().window(ventana);
         }
+    }
+
+    public void buscarYClick(By localizadorClickeable, By tituloSeccion){
+        boolean found = false;
+        while (!found) {
+            try {
+                clic(esperarElementoWeb(localizadorClickeable));
+                found = true;
+            } catch (NoSuchElementException | ElementClickInterceptedException e) {
+                hacerScrollHasta(esperarElementoWeb(tituloSeccion));
+            }
+        }
+        esperarXsegundos(getTiempoMedioEspera());
+    }
+
+    public void validarMensaje(String messageExpected, WebElement MessageActual){
+        Assertions.assertEquals(FixEncoding.corregirEncoding(messageExpected), obtenerTexto(MessageActual));
+    }
+
+    public void validarMensajeSinFixEncoding(String messageExpected, WebElement MessageActual){
+        Assertions.assertEquals(messageExpected, obtenerTexto(MessageActual));
+    }
+
+    public void agarrarArrastrarPuntero_RangoPrecios(By punteroMovil, By montoEvaluar, int indexMontoEvaluar, String monto, int direccion){
+        WebElement divPuntoMovilPrecios = esperarElementoWeb(punteroMovil);
+        int initialX = divPuntoMovilPrecios.getLocation().getX();
+        WebElement montoPrecio = buscarElementosWeb(montoEvaluar).get(indexMontoEvaluar);
+        getActions().clickAndHold(divPuntoMovilPrecios).perform();
+        do {
+            getActions().moveByOffset(direccion, 0).perform();
+            if (obtenerTexto(montoPrecio).contains(monto)) {
+                break;
+            }
+            if (direccion == -1 && divPuntoMovilPrecios.getLocation().getX() >= initialX){
+                break;
+            }
+            if (direccion == 1 && divPuntoMovilPrecios.getLocation().getX() <= initialX){
+                break;
+            }
+        } while (true);
+        getActions().release().perform();
     }
 
     public void hacerHoverEnElemento(By localizador){

@@ -3,11 +3,8 @@ package proyecto.utils;
 import java.nio.charset.StandardCharsets;
 
 public class FixEncoding {
-    public static String corregirEncoding(String textoIncorrecto) {
-        // Convertir la cadena incorrecta de la codificación ISO-8859-1 a UTF-8
+    public static String corregirEncoding(String textoIncorrecto){
         byte[] bytes = textoIncorrecto.getBytes(StandardCharsets.ISO_8859_1);
-        String textoCorregido = new String(bytes, StandardCharsets.UTF_8);
-
-        return textoCorregido;
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 }
