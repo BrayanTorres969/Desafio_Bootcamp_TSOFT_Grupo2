@@ -1,10 +1,7 @@
 package proyecto.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -240,11 +237,10 @@ public class CPs {
         vuelosPage.volverInicioPagina();
         //Validar datos de contacto - Datos personales y equipaje
         vuelosPage.esperarXsegundos(1000);
-        //vuelosPage.validarDatosDeContactoVacioFormDatosPersonalesYEquipaje();
-        /*Assertions.assertEquals(dataCPs.get(4).trim(), vuelosPage.errorNombreDatosDeContactoFormDatosPersonalesYEquipaje());
+        Assertions.assertEquals(dataCPs.get(4).trim(), vuelosPage.errorNombreDatosDeContactoFormDatosPersonalesYEquipaje());
         Assertions.assertEquals(dataCPs.get(5).trim(), vuelosPage.errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje());
         Assertions.assertEquals(dataCPs.get(6).trim(), vuelosPage.errorEmailDatosDeContactoFormDatosPersonalesYEquipaje());
-        Assertions.assertEquals(dataCPs.get(7).trim(), vuelosPage.errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje());*/
+        Assertions.assertEquals(dataCPs.get(7).trim(), vuelosPage.errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje());
 
 
     }
