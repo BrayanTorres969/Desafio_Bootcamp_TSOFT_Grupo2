@@ -22,6 +22,8 @@ public class HomePage extends BasePage {
     By byPersonas = By.xpath("//div[@class='d-1k5t2mm']//button[contains(@aria-label, 'Aumentar')]");
     By byBuscarHotel = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/div[3]/div/button");
     By byBtnLimpiar = By.xpath("//div[@aria-label='Hoteles']//button[@aria-label='Limpiar']");
+    By byNavBarHoteles = By.xpath("//p[contains(text(),'Hoteles')]");
+    By byBtnCasas = By.xpath("//a[@title='Casas']");
 
 
     public HomePage(WebDriver driver) {
@@ -36,10 +38,16 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byBtnVuelos));
     }
 
-    public void irATrenes(){
+    public void irATrenes() {
         hacerHoverEnElemento(byBtnVerMas);
         clic(byBtnTrenes);
     }
+
+    public void irACasas() {
+        hacerHoverEnElemento(byNavBarHoteles);
+        clic(byBtnCasas);
+    }
+
     public void limpiarValorOrigenPorDefecto() throws InterruptedException {
         if (buscarElementoWeb(byBtnLimpiar).isDisplayed()) {
             Thread.sleep(1000);
@@ -47,7 +55,7 @@ public class HomePage extends BasePage {
         }
     }
 
-    public void buscarHoteles(){
+    public void buscarHoteles() {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -68,7 +76,7 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byFechaSalida));
         //clic(esperarElementoWeb(bySeleccionFSal));
 
-        for(int i=0;i<2;i++){
+        for (int i = 0; i < 2; i++) {
             clic(esperarElementoWeb(byPersonas));
         }
         clic(esperarElementoWeb(byBuscarHotel));
