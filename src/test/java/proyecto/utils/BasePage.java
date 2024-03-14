@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -213,5 +214,10 @@ public class BasePage {
     public WebElement esperarElementoWebMil(By localizador){
         espera = new WebDriverWait(this.driver,1000);
         return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
+
+    public void seleccionarCmbPorValue(WebElement elemento, String value){
+        Select selector = new Select(elemento);
+        selector.selectByVisibleText(value);
     }
 }
