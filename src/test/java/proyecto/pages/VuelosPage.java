@@ -60,10 +60,6 @@ public class VuelosPage extends BasePage {
         hacerScrollHasta(buscarElementoWeb(byCardCategoriaVuelos));
     }
 
-    public void hacerScrollHastaEquipaje() {
-        hacerScrollHasta(buscarElementoWeb(byLabelEquipaje));
-    }
-
     public void irAVuelosAEuropa() {
         clic(byBtnVuelosAEuropa);
     }
@@ -222,16 +218,23 @@ public class VuelosPage extends BasePage {
     }
 
     public void filtrarResultadoPorMasBarato (){
-        clic(byBtnFiltrarResultadosVuelosPorMasBarato);
+        clic(esperarElementoWeb(byBtnFiltrarResultadosVuelosPorMasBarato));
     }
     public void filtrarResultadoMetodoPago(){
         seleccionarCampoMetodoPago();
         clic(bySeleccAmericanExpress);
     }
 
-    public void ClickCheckbox () {
-        clic(byBtnCheckboxEquipajeFactu);
-        //no quiere funciona
+    public void clickCheck(WebDriver driver){
+        esperarXsegundos(10000);
+        WebElement boton = driver.findElement(By.id("id-Equipaje facturado incl."));
+
+        // Método 1: Cambiar el valor de aria-checked a true
+        boton.getAttribute("aria-checked"); // Verificamos el estado actual
+        if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
+            boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
+        }
+
     }
 
     public void validarRutaDetalleVuelo(String origen, String destino) {
@@ -278,19 +281,34 @@ public class VuelosPage extends BasePage {
         esperarXsegundos(1000);
     }
 
+    public void resultadosLlenos(){
+        esperarXsegundos(10000);
+        if (!obtenerResultadosVuelosBuscados().isEmpty()) {
+            esperarXsegundos(3000);
+            System.out.println("Hay resultados para esta busqueda");
+        } else {
+            System.out.println("No hay resultados para esta busqueda");
+        }
+    }
+
     public void resultadosTC2(){
 
         buscarVuelos();
         esperarXsegundos(10000);
+        boolean VoF = obtenerResultadosVuelosBuscados().isEmpty();
 
-        if (obtenerResultadosVuelosBuscados().isEmpty()) {
+        if (VoF) {
             esperarXsegundos(3000);
             System.out.println("No hay resultados para esta busqueda");
+            Assertions.assertTrue(VoF);
         } else {
             System.out.println("Hay resultados para esta busqueda");
+            Assertions.assertFalse(VoF);
         }
     }
 
+
+    public void validarFormDatosPersonalesYEquipaje() {}
 
     public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
@@ -302,7 +320,8 @@ public class VuelosPage extends BasePage {
 
     public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
-    }}
+    }
+    }
 
 
 

@@ -50,6 +50,7 @@ public class CPs {
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
 
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
+
         //Aceptar cookies
         //home.aceptarCookies();
 
@@ -81,7 +82,10 @@ public class CPs {
     }
 
     @Test
-    public void Tc002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
+    public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
+
+        dataCPs = DataDriven.prepararData("TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria");
+
         LocalDate fecha = LocalDate.now();
         String dia = fecha.format(DateTimeFormatter.ofPattern("dd"));
         int diaMna = Integer.parseInt(dia) + 1;
@@ -90,7 +94,7 @@ public class CPs {
         vuelosPage = new VuelosPage(driver);
         vuelosPage.vuelosDesplaza();
         vuelosPage.limpiezaBusqueda();
-        vuelosPage.insertarValores("Lima", "Tokio");
+        vuelosPage.insertarValores(dataCPs.get(1).trim(), dataCPs.get(2).trim());
         vuelosPage.seleccionCamposIdayVuelta(dia, diaSgt);
         vuelosPage.resultadosTC2();
         //Fin_funciona100%
@@ -156,28 +160,30 @@ public class CPs {
 
     @Test
     public void TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala(){
-        String dia ="15";
-        String diaSgt = "20";
+
+        dataCPs = DataDriven.prepararData("TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala");
+
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
         vuelosPage.vuelosDesplaza();
         vuelosPage.limpiezaBusqueda();
-        vuelosPage.insertarValores("Lima", "Tokio");
-        vuelosPage.seleccionCamposIdayVuelta(dia, diaSgt);
+        vuelosPage.insertarValores(dataCPs.get(1).trim(), dataCPs.get(2).trim());
+        vuelosPage.seleccionCamposIdayVuelta(dataCPs.get(3).trim(), dataCPs.get(4).trim());
 
         vuelosPage.seleccionarCampoPasajeros();
         vuelosPage.seleccionarCualquierClase();
         vuelosPage.buscarVuelos();
-        vuelosPage.esperarXsegundos(15000);
+        vuelosPage.esperarXsegundos(10000);
 
         vuelosPage.filtrarResultadoPorMasBarato();
-        vuelosPage.esperarXsegundos(10000);
+        vuelosPage.esperarXsegundos(5000);
 
         vuelosPage.seleccionarCampoMetodoPago();
         vuelosPage.filtrarResultadoMetodoPago();
-        vuelosPage.esperarXsegundos(4000);
-        vuelosPage.ClickCheckbox();
         vuelosPage.esperarXsegundos(3000);
+        vuelosPage.clickCheck(driver);
+        vuelosPage.esperarXsegundos(2000);
+        vuelosPage.resultadosLlenos();
     }
 
     @Test
