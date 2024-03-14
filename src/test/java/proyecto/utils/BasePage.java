@@ -1,18 +1,67 @@
 package proyecto.utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+import java.util.Set;
 
 public class BasePage {
     //Wrapper de selenium
     private WebDriver driver;
     private WebDriverWait espera;
+    private JavascriptExecutor js;
+    private Actions actions;
+
+    private int tiempoCortoEspera = 1000;
+    private int tiempoMedioEspera = 3000;
+    private int tiempoLargoEspera = 5000;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        this.js = (JavascriptExecutor) driver;
+        this.actions = new Actions(getDriver());
+    }
+
+    public int getTiempoCortoEspera() {
+        return tiempoCortoEspera;
+    }
+
+    public int getTiempoMedioEspera() {
+        return tiempoMedioEspera;
+    }
+
+    public int getTiempoLargoEspera() {
+        return tiempoLargoEspera;
+    }
+
+    public WebDriverWait getEspera() {
+        return espera;
+    }
+
+    public void setEspera(WebDriverWait espera) {
+        this.espera = espera;
+    }
+
+    public JavascriptExecutor getJs() {
+        return js;
+    }
+
+    public void setJs(JavascriptExecutor js) {
+        this.js = js;
+    }
+
+    public Actions getActions() {
+        return actions;
+    }
+
+    public void setActions(Actions actions) {
+        this.actions = actions;
     }
 
     public WebDriver getDriver() {
@@ -26,6 +75,10 @@ public class BasePage {
     //Métodos que invocan las librerias de selenium
     public WebElement buscarElementoWeb(By localizador) {
         return driver.findElement(localizador);
+    }
+
+    public List<WebElement> buscarElementosWeb(By localizador) {
+        return driver.findElements(localizador);
     }
 
     public void clic(By localizador) {
@@ -79,5 +132,25 @@ public class BasePage {
 
     public String obtenerAtributo(WebElement elemento, String atributo) {
         return elemento.getAttribute(atributo);
+    }
+
+    public void hacerScrollHasta(WebElement elemento) {
+        js.executeScript("arguments[0].scrollIntoView();", elemento);
+    }
+
+    public void hacerScrollHastaPiePagina() {
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    }
+
+    public void hacerScrollTopPagina(){
+        js.executeScript("window.scrollTo(0, 0);");
+    }
+
+    public void cambiarALaUltimaVentanaAbierta() {
+        Set<String> ventanas = driver.getWindowHandles();
+        //Cambio a la nueva ventana
+        for (String ventana : ventanas) {
+            driver.switchTo().window(ventana);
+        }
     }
 }
