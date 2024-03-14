@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import proyecto.pages.AlojamientoAlterPage;
 import proyecto.pages.HomePage;
 import proyecto.pages.VuelosPage;
 import proyecto.utils.DataDriven;
@@ -23,6 +24,7 @@ public class CPs {
     VuelosPage vuelosPage;
     WebDriver driver;
     ArrayList<String> dataCPs; //null
+    AlojamientoAlterPage alterPage;
 
     @BeforeAll
     public static void start() {
@@ -248,5 +250,28 @@ public class CPs {
         Assertions.assertEquals(dataCPs.get(7).trim(), vuelosPage.errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje());
 
 
+    }
+
+    @Test
+    public void TC0013_Filtrar_Detalles_Busqueda(){
+        home.esperarXsegundos(2000);
+        home.buscarHoteles();
+    }
+
+    @Test
+    public void TC0016_Compartir_InfoCasa_Contacto(){
+        home.buscarHoteles();
+        alterPage = new AlojamientoAlterPage(driver);
+        alterPage.seleccionarHotelAlternativo();
+        alterPage.seleccionarCard(0);
+        alterPage.cambioVentana(driver);
+    }
+
+    @Test
+    public void TC0018_Filtrar_Detalles_Hotel(){
+        home.buscarHoteles();
+        alterPage = new AlojamientoAlterPage(driver);
+        alterPage.seleccionarHotelAlternativo();
+        alterPage.filtrarDetalleCard(driver);
     }
 }
