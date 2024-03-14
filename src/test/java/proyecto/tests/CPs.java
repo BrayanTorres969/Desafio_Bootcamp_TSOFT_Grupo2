@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import proyecto.pages.AlojamientoAlterPage;
 import proyecto.pages.HomePage;
+import proyecto.pages.TrenesPage;
 import proyecto.pages.VuelosPage;
 import proyecto.utils.DataDriven;
 import proyecto.utils.FixEncoding;
@@ -22,6 +23,7 @@ public class CPs {
 
     HomePage home;
     VuelosPage vuelosPage;
+    TrenesPage trenesPage;
     WebDriver driver;
     ArrayList<String> dataCPs; //null
     AlojamientoAlterPage alterPage;
@@ -249,6 +251,35 @@ public class CPs {
         Assertions.assertEquals(dataCPs.get(6).trim(), vuelosPage.errorEmailDatosDeContactoFormDatosPersonalesYEquipaje());
         Assertions.assertEquals(dataCPs.get(7).trim(), vuelosPage.errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje());
 
+    }
+
+    @Test
+    public void CP007_BuscarTrenSoloIda(){
+
+        home.irATrenes();
+        trenesPage = new TrenesPage(driver);
+
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarOpcionSoloIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.aumentarNumeroDePasajero();
+
+        trenesPage.buscarTrenIda();
+
 
     }
 
@@ -274,4 +305,5 @@ public class CPs {
         alterPage.seleccionarHotelAlternativo();
         alterPage.filtrarDetalleCard(driver);
     }
+
 }
