@@ -16,6 +16,24 @@ public class AlojamientoAlterPage extends BasePage {
     By botonFiltros = By.xpath("//div[@id='Pill-AllFiltersContainer']");
     By precioMin = By.xpath("//div[@data-testid='slider-bullet-left']");
     By precioMax = By.xpath("//div[@data-testid='slider-bullet-right']");
+    By liResort = By.xpath("//li[@id='exp_elem_accomodation_type_2']");
+    By estrellasContainer = By.xpath("//div[@id='StarsContainer']");
+    By li4Estrellas = By.xpath("//li[@id='exp_elem_hotel_stars_4']");
+    By mealContainer = By.xpath("//div[@id='MealContainer']");
+    By ulMeals = By.xpath("//div[@id='MealContainer']//ul/li");
+    By ratingContainer = By.xpath("//div[@id='RatingContainer']");
+    By liExcelente = By.xpath("//div[@id='RatingContainer']//li[@id='exp_elem_rating_excellent']");
+    By faciliContainer = By.xpath("//div[@id='FacilitiesContainer']");
+    By facilPiscina = By.xpath("//li[@id='exp_elem_general_accomodation_facilities_4']");
+    By facilWifi = By.xpath("//li[@id='exp_elem_general_accomodation_facilities_0']");
+    By facilFit = By.xpath("//li[@id='exp_elem_general_accomodation_facilities_13']");
+    By acomodaContainer = By.xpath("//div[@id='AccommodationChainsContainer']");
+    By acomodaInput = By.xpath("//div[@id='AccommodationChainsContainer']//input[@id='accomodation_chain']");
+    By sugeEmergente = By.xpath("//li[@id='exp_elem_accomodation_chain_CHAIN_MARRIOTT']");
+    By acomodaCaracContainer = By.xpath("//div[@id='AccommodationThemesContainer']");
+    By caracPlaya = By.xpath("//li[@id='exp_elem_accomodation_theme_beachhotel']");
+    By caracResort = By.xpath("//li[@id='exp_elem_accomodation_theme_resorthotel']");
+    By btnAplicar = By.xpath("//div[contains(@class,'DialogFooter')]//div[contains(text(),'Aplicar')]");
     public AlojamientoAlterPage(WebDriver driver) {
         super(driver);
     }
@@ -29,6 +47,11 @@ public class AlojamientoAlterPage extends BasePage {
     public void seleccionarCard(int i){
         esperarXsegundos(5000);
         clic(esperarElementoWeb(buscarElementosWeb(cards).get(i)));
+    }
+
+    public void seleccionarMeal(){
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(buscarElementosWeb(ulMeals).get(2)));
     }
 
     public void cambioVentana(WebDriver driver){
@@ -54,6 +77,43 @@ public class AlojamientoAlterPage extends BasePage {
         actions.clickAndHold(botonMin).moveByOffset(50, 0).release().perform();
         esperarXsegundos(1000);
         actions.clickAndHold(botonMax).moveByOffset(-50, 0).release().perform();
+
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(liResort));
+        hacerScrollHasta(esperarElementoWeb(estrellasContainer));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(li4Estrellas));
+        hacerScrollHasta(esperarElementoWeb(mealContainer));
+        esperarXsegundos(2000);
+        seleccionarMeal();
+        hacerScrollHasta(esperarElementoWeb(ratingContainer));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(liExcelente));
+
+        hacerScrollHasta(esperarElementoWeb(faciliContainer));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(facilPiscina));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(facilWifi));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(facilFit));
+
+        hacerScrollHasta(esperarElementoWeb(acomodaContainer));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(acomodaInput));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(sugeEmergente));
+
+        hacerScrollHasta(esperarElementoWeb(acomodaCaracContainer));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(caracPlaya));
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(caracResort));
+
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(btnAplicar));
+
+        seleccionarCard(0);
 
     }
 }
