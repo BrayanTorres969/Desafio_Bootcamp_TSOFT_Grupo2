@@ -321,6 +321,7 @@ public class VuelosPage extends BasePage {
     public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
     }
+    }
 
 
-}
+

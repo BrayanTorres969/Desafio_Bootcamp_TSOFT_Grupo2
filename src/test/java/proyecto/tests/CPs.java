@@ -52,7 +52,7 @@ public class CPs {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
         //Aceptar cookies
-        home.aceptarCookies();
+        //home.aceptarCookies();
 
         home.esperarXsegundos(1000);
         home.irAVuelos();
@@ -107,7 +107,7 @@ public class CPs {
         dataCPs = DataDriven.prepararData("TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos");
 
         //Aceptar cookies
-        home.aceptarCookies();
+        //home.aceptarCookies();
 
         home.esperarXsegundos(1000);
         home.irAVuelos();
@@ -192,7 +192,7 @@ public class CPs {
         dataCPs = DataDriven.prepararData("TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido");
 
         //Aceptar cookies
-        home.aceptarCookies();
+        //home.aceptarCookies();
 
         home.esperarXsegundos(1000);
         home.irAVuelos();
@@ -242,7 +242,6 @@ public class CPs {
         vuelosPage.volverInicioPagina();
         //Validar datos de contacto - Datos personales y equipaje
         vuelosPage.esperarXsegundos(1000);
-        //vuelosPage.validarDatosDeContactoVacioFormDatosPersonalesYEquipaje();
         Assertions.assertEquals(dataCPs.get(4).trim(), vuelosPage.errorNombreDatosDeContactoFormDatosPersonalesYEquipaje());
         Assertions.assertEquals(dataCPs.get(5).trim(), vuelosPage.errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje());
         Assertions.assertEquals(dataCPs.get(6).trim(), vuelosPage.errorEmailDatosDeContactoFormDatosPersonalesYEquipaje());
