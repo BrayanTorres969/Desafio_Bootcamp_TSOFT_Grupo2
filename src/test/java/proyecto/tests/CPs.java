@@ -57,39 +57,6 @@ public class CPs {
     }
 
     @Test
-    public void TC006_Busqueda_Vuelos_Multidestino() {
-        home.irAMultidestino();
-        home.cambiarALaUltimaVentanaAbierta();
-        multidestino = new MultidestinoPage(driver);
-        multidestino.ejecutador_TC006("Madrid", "Barcelona", "Cuzco", "Lima",
-                "No hay resultados para esta búsqueda");
-    }
-
-    @Test
-    public void TC011_Busqueda_TrenXHotel_RangoPrecios() {
-        home.irATrenHotel();
-        home.esperarXsegundos(home.getTiempoMedioEspera());
-        trenHotel = new TrenHotelPage(driver);
-        trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
-    }
-
-    @Test
-    public void T015_Busqueda_HotelesCasa_RangoPrecios(){
-        home.irAHotelCasa();
-        home.esperarXsegundos(home.getTiempoMedioEspera());
-        hotelPage = new HotelPage(driver);
-        hotelPage.ejecutador_T015("Andorra", "5 resultados encontrados para 18 mar - 20 mar");
-    }
-
-    @Test
-    public void T017_Busqueda_HotelesEsqui_VariosFiltrosDeUna(){
-        home.irAHotelEsqui();
-        home.esperarXsegundos(home.getTiempoMedioEspera());
-        hotelPage = new HotelPage(driver);
-        hotelPage.ejecutador_T017("Andorra la Vella", "4 resultados encontrados para 18 mar - 10 abr");
-    }
-
-    @Test
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
@@ -124,7 +91,7 @@ public class CPs {
     }
 
     @Test
-    public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria(){
+    public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria() {
 
         dataCPs = DataDriven.prepararData("TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria");
 
@@ -201,7 +168,7 @@ public class CPs {
     }
 
     @Test
-    public void TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala(){
+    public void TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala() {
 
         dataCPs = DataDriven.prepararData("TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala");
 
@@ -262,7 +229,7 @@ public class CPs {
         vuelosPage.esperarXsegundos(3000);
         vuelosPage.buscarVuelos();
 
-        vuelosPage.esperarXsegundos(12000);
+        vuelosPage.esperarXsegundos(15000);
         vuelosPage.filtrarResultadosPorMasRapido();
         vuelosPage.esperarXsegundos(5000);
 
@@ -292,7 +259,16 @@ public class CPs {
     }
 
     @Test
-    public void TC007_BusquedaDeTrenes_SoloIda(){
+    public void TC006_Busqueda_Vuelos_Multidestino() {
+        home.irAMultidestino();
+        home.cambiarALaUltimaVentanaAbierta();
+        multidestino = new MultidestinoPage(driver);
+        multidestino.ejecutador_TC006("Madrid", "Barcelona", "Cuzco", "Lima",
+                "No hay resultados para esta búsqueda");
+    }
+
+    @Test
+    public void TC007_BusquedaDeTrenes_SoloIda() {
 
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
@@ -321,7 +297,7 @@ public class CPs {
     }
 
     @Test
-    public void TC008_BusquedaDeTrenes_IdaYVuelta(){
+    public void TC008_BusquedaDeTrenes_IdaYVuelta() {
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -351,7 +327,7 @@ public class CPs {
     }
 
     @Test
-    public void TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo(){
+    public void TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo() {
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -391,13 +367,29 @@ public class CPs {
     }
 
     @Test
-    public void TC0013_Filtrar_Detalles_Busqueda(){
+    public void TC011_Busqueda_TrenXHotel_RangoPrecios() {
+        home.irATrenHotel();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        trenHotel = new TrenHotelPage(driver);
+        trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
+    }
+
+    @Test
+    public void TC0013_Filtrar_Detalles_Busqueda() {
         home.esperarXsegundos(2000);
         home.buscarHoteles();
     }
 
     @Test
-    public void TC0016_Compartir_InfoCasa_Contacto(){
+    public void T015_Busqueda_HotelesCasa_RangoPrecios() {
+        home.irAHotelCasa();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        hotelPage = new HotelPage(driver);
+        hotelPage.ejecutador_T015("Andorra", "5 resultados encontrados para 18 mar - 20 mar");
+    }
+
+    @Test
+    public void TC0016_Compartir_InfoCasa_Contacto() {
         home.buscarHoteles();
         alterPage = new AlojamientoAlterPage(driver);
         alterPage.seleccionarHotelAlternativo();
@@ -406,7 +398,15 @@ public class CPs {
     }
 
     @Test
-    public void TC0018_Filtrar_Detalles_Hotel(){
+    public void T017_Busqueda_HotelesEsqui_VariosFiltrosDeUna() {
+        home.irAHotelEsqui();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        hotelPage = new HotelPage(driver);
+        hotelPage.ejecutador_T017("Andorra la Vella", "4 resultados encontrados para 18 mar - 10 abr");
+    }
+
+    @Test
+    public void TC0018_Filtrar_Detalles_Hotel() {
         home.buscarHoteles();
         alterPage = new AlojamientoAlterPage(driver);
         alterPage.seleccionarHotelAlternativo();

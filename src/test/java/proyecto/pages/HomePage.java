@@ -12,7 +12,6 @@ public class HomePage extends BasePage {
     By byAMultidestino = By.className("d-109iyyz");
     By byBtnAceptarCookies = By.className("iubenda-cs-accept-btn");
 
-    By byBtnVerMas = By.xpath("//p[contains(text(),'" + FixEncoding.corregirEncoding("Ver más") + "')]");
     By byOptionTrenHotel = By.xpath("//div[contains(text(),'Tren + Hotel')]");
 
     By byBtnHoteles = By.xpath("//p[contains(text(),'Hoteles')]");
@@ -20,7 +19,6 @@ public class HomePage extends BasePage {
 
     By byOptionEsqui = By.xpath("//div[contains(text(),'" + FixEncoding.corregirEncoding("Esquí") + "')]");
     //Agrupar los locators
-    By byBtnAceptarCookies = By.className("iubenda-cs-accept-btn");
     By byBtnVuelos = By.xpath(("//p[contains(text(),'Vuelos')]"));
     By byBtnVerMas = By.xpath(FixEncoding.corregirEncoding("//a[@title='Ver más']"));
     By byBtnTrenes = By.xpath("//li//div[text()='Trenes']");
@@ -44,27 +42,29 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byBtnAceptarCookies));
     }
 
-    public void irAMultidestino(){
-        this.aceptarCookies();
+    public void irAMultidestino() {
+        //this.aceptarCookies();
         clic(byAMultidestino);
     }
 
-    public void irATrenHotel(){
-        this.aceptarCookies();
+    public void irATrenHotel() {
+        //this.aceptarCookies();
         getActions().moveToElement(esperarElementoWeb(byBtnVerMas)).perform();
         clic(esperarElementoWeb(byOptionTrenHotel));
     }
 
-    public void irAHotelCasa(){
-        this.aceptarCookies();
+    public void irAHotelCasa() {
+        //this.aceptarCookies();
         getActions().moveToElement(esperarElementoWeb(byBtnHoteles)).perform();
         clic(esperarElementoWeb(byOptionCasa));
     }
 
-    public void irAHotelEsqui(){
-        this.aceptarCookies();
+    public void irAHotelEsqui() {
+        //this.aceptarCookies();
         getActions().moveToElement(esperarElementoWeb(byBtnHoteles)).perform();
         clic(esperarElementoWeb(byOptionEsqui));
+    }
+
     public void irAVuelos() {
         clic(esperarElementoWeb(byBtnVuelos));
     }
