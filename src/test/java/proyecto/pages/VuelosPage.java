@@ -292,8 +292,6 @@ public class VuelosPage extends BasePage {
     }
 
 
-    /*public void validarFormDatosPersonalesYEquipaje() {
-
     public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
     }
@@ -304,7 +302,7 @@ public class VuelosPage extends BasePage {
 
     public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
-    }}*/
+    }}
 
 
 }
