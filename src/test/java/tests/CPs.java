@@ -36,13 +36,13 @@ public class CPs {
     }
 
     @Test
-    public void CP001_Filtrar_Detalles_Busqueda(){
+    public void TC0013_Filtrar_Detalles_Busqueda(){
         home.aceptarCookies();
         home.buscarHoteles();
     }
 
     @Test
-    public void CP002_Compartir_InfoCasa_Contacto(){
+    public void TC0016_Compartir_InfoCasa_Contacto(){
         home.aceptarCookies();
         home.buscarHoteles();
         alterPage.seleccionarHotelAlternativo();
@@ -51,7 +51,7 @@ public class CPs {
     }
 
     @Test
-    public void CP003_Filtrar_Detalles_Hotel(){
+    public void TC0018_Filtrar_Detalles_Hotel(){
         home.aceptarCookies();
         home.buscarHoteles();
         alterPage.seleccionarHotelAlternativo();
