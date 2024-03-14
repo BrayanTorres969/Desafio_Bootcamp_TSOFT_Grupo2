@@ -367,7 +367,7 @@ public class CPs {
     }
 
     @Test
-    public void TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida(){
+    public void TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida() {
         home.irATrenes();
         trenesPage = new TrenesPage(driver);
 
@@ -421,6 +421,26 @@ public class CPs {
     public void TC0013_Filtrar_Detalles_Busqueda() {
         home.esperarXsegundos(2000);
         home.buscarHoteles();
+    }
+
+    @Test
+    public void TC014_Verificar_BotonModificar_ResumenDelViaje_EscapadasAndorra() {
+        home.irACasas();
+        home.esperarXsegundos(5000);
+        //hacer scroll hasta ¿Cuál será tu próxima escapada?
+        alterPage = new AlojamientoAlterPage(driver);
+        alterPage.hacerScrollHastaProxEscapada();
+        alterPage.esperarXsegundos(2000);
+        alterPage.seleccionarEscapadasAndorra();
+        alterPage.esperarXsegundos(2000);
+        alterPage.cambiarALaUltimaVentanaAbierta();
+        alterPage.esperarXsegundos(4000);
+        alterPage.seleccionarPrimerResultadoEscapeAndorra();
+        alterPage.esperarXsegundos(3000);
+        alterPage.cambiarALaUltimaVentanaAbierta();
+        alterPage.esperarXsegundos(3000);
+        alterPage.seleccionarBtnModificarAlojRegimen();
+        alterPage.esperarXsegundos(3000);
     }
 
     @Test
