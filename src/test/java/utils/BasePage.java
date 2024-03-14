@@ -56,8 +56,18 @@ public class BasePage {
         return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
     }
 
+    public WebElement esperarElementoWebM(By localizador){
+        espera = new WebDriverWait(this.driver,1000);
+        return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
+
     public WebElement esperarElementoWeb(WebElement elemento){
         espera = new WebDriverWait(this.driver,30);
+        return espera.until(ExpectedConditions.visibilityOf(elemento));
+    }
+
+    public WebElement esperarElementoWebM(WebElement elemento){
+        espera = new WebDriverWait(this.driver,1000);
         return espera.until(ExpectedConditions.visibilityOf(elemento));
     }
 

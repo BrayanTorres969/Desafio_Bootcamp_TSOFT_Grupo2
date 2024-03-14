@@ -1,8 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import utils.BasePage;
 
 import java.util.Set;
@@ -15,8 +17,10 @@ public class AlojamientoAlterPage extends BasePage {
 
     By txtPrecioMin = By.xpath("//div[contains(@class,'PriceContainer')]//div[contains(text(),'610')]");
 
-    By as = By.xpath("//*[@id=\"Pill-AllFiltersContainer\"]");
+    By botonFiltros = By.xpath("//div[@id='Pill-AllFiltersContainer']");
     By check = By.xpath("//ul[@id='lb_list_accomodation_type']//li[@id='exp_elem_accomodation_type_1']");
+    By precioMin = By.xpath("//div[@data-testid='slider-bullet-left']");
+    By precioMax = By.xpath("//div[@data-testid='slider-bullet-right']");
     public AlojamientoAlterPage(WebDriver driver) {
         super(driver);
     }
@@ -25,10 +29,10 @@ public class AlojamientoAlterPage extends BasePage {
         //clic(esperarElementoWeb(byHotelAlternativo));
 
         cargarSitio(buscarElementoWeb(ur).getAttribute("href"));
-        esperarXsegundos(2000);
     }
 
     public void seleccionarCard(int i){
+        esperarXsegundos(2000);
         clic(esperarElementoWeb(buscarElementosWeb(cards).get(i)));
     }
 
@@ -43,10 +47,29 @@ public class AlojamientoAlterPage extends BasePage {
         clic(esperarElementoWeb(compartir));
     }
 
-    public void filtrarDetalleCard(){
-        clic(esperarElementoWeb(as));
+    public void agregarPrecio(String precio){
+        esperarXsegundos(500);
+        //agregarTexto(esperarElementoWeb(locatorTxtCorreo),email);
+    }
+
+    public void seleccionarFiltros(){
         esperarXsegundos(1000);
-        clic(esperarElementoWeb(check));
+        clic(esperarElementoWeb(botonFiltros));
+    }
+
+    public void filtrarDetalleCard(WebDriver driver){
+        esperarXsegundos(4000);
+        clic(esperarElementoWeb(botonFiltros));
+        esperarXsegundos(1000);
+        WebElement botonMin = esperarElementoWebM(precioMin);
+        WebElement botonMax = esperarElementoWebM(precioMax);
+
+        Actions actions = new Actions(driver);
+
+        actions.clickAndHold(botonMin).moveByOffset(50, 0).release().perform();
+        esperarXsegundos(1000);
+        actions.clickAndHold(botonMax).moveByOffset(-50, 0).release().perform();
+
     }
 }
 

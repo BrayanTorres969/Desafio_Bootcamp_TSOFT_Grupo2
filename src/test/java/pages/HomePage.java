@@ -31,6 +31,11 @@ public class HomePage extends BasePage {
     }
 
     public void buscarHoteles(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         clic(esperarElementoWeb(byHoteles));
         /*if(esperarElementoWeb(byLimpiarBusqueda).isDisplayed()){
             clic(esperarElementoWeb(byLimpiarBusqueda));

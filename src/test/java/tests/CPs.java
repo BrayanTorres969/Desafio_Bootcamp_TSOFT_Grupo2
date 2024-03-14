@@ -32,7 +32,7 @@ public class CPs {
 
     @AfterEach
     public void posCondiciones(){
-        //home.cerrarBrowser();
+        home.cerrarBrowser();
     }
 
     @Test
@@ -51,13 +51,12 @@ public class CPs {
     }
 
     @Test
-    public void CP003_Compartir_InfoCasa_Contacto(){
+    public void CP003_Filtrar_Detalles_Hotel(){
         home.aceptarCookies();
         home.buscarHoteles();
         alterPage.seleccionarHotelAlternativo();
-        alterPage.filtrarDetalleCard();
-
+        //alterPage.seleccionarFiltros();
+        alterPage.filtrarDetalleCard(driver);
     }
-
 
 }
