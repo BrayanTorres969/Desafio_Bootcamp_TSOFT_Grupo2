@@ -367,6 +367,49 @@ public class CPs {
     }
 
     @Test
+    public void TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida(){
+        home.irATrenes();
+        trenesPage = new TrenesPage(driver);
+
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarOpcionIdaYVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeOrigen();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarLugarDeDestino();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioIdaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarFechaEnCalendarioVueltaTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.reducirNumeroDePasajero();
+
+        trenesPage.buscarTrenIda();
+        trenesPage.esperarXsegundos(5000);
+
+        trenesPage.seleccionarMasRapidoTren();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarPrimerTren();
+        trenesPage.esperarXsegundos(4000);
+
+        trenesPage.datosDelPasajero();
+        trenesPage.esperarXsegundos(1000);
+
+        trenesPage.seleccionarAsistenciaEspecial();
+
+    }
+
+    @Test
     public void TC011_Busqueda_TrenXHotel_RangoPrecios() {
         home.irATrenHotel();
         home.esperarXsegundos(home.getTiempoMedioEspera());
