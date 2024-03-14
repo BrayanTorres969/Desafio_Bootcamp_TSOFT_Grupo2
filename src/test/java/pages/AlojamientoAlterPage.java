@@ -14,11 +14,7 @@ public class AlojamientoAlterPage extends BasePage {
     By ur = By.xpath("//a[contains(@class, 'openx-ui-tile-"+numLista+"') and substring(@class, string-length(@class) - string-length('openx-ui-tile-"+numLista+"') + 1) = 'openx-ui-tile-"+numLista+"']");
     By cards = By.xpath("//div[contains(@data-testid,'card-container')]");
     By compartir = By.xpath("//button[@id='menu-button--menu--:r0:']");
-
-    By txtPrecioMin = By.xpath("//div[contains(@class,'PriceContainer')]//div[contains(text(),'610')]");
-
     By botonFiltros = By.xpath("//div[@id='Pill-AllFiltersContainer']");
-    By check = By.xpath("//ul[@id='lb_list_accomodation_type']//li[@id='exp_elem_accomodation_type_1']");
     By precioMin = By.xpath("//div[@data-testid='slider-bullet-left']");
     By precioMax = By.xpath("//div[@data-testid='slider-bullet-right']");
     public AlojamientoAlterPage(WebDriver driver) {
@@ -45,16 +41,6 @@ public class AlojamientoAlterPage extends BasePage {
             driver.switchTo().window(ventana);
         }
         clic(esperarElementoWeb(compartir));
-    }
-
-    public void agregarPrecio(String precio){
-        esperarXsegundos(500);
-        //agregarTexto(esperarElementoWeb(locatorTxtCorreo),email);
-    }
-
-    public void seleccionarFiltros(){
-        esperarXsegundos(1000);
-        clic(esperarElementoWeb(botonFiltros));
     }
 
     public void filtrarDetalleCard(WebDriver driver){

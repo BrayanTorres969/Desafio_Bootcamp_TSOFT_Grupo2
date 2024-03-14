@@ -37,9 +37,9 @@ public class HomePage extends BasePage {
             throw new RuntimeException(e);
         }
         clic(esperarElementoWeb(byHoteles));
-        /*if(esperarElementoWeb(byLimpiarBusqueda).isDisplayed()){
+        if(esperarElementoWeb(byLimpiarBusqueda).isDisplayed()){
             clic(esperarElementoWeb(byLimpiarBusqueda));
-        }*/
+        }
         clic(esperarElementoWeb(byInputBuscar));
         clic(esperarElementoWeb(byTipoExotico));
 

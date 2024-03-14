@@ -55,7 +55,6 @@ public class CPs {
         home.aceptarCookies();
         home.buscarHoteles();
         alterPage.seleccionarHotelAlternativo();
-        //alterPage.seleccionarFiltros();
         alterPage.filtrarDetalleCard(driver);
     }
 
