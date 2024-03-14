@@ -49,9 +49,7 @@ public class TrenHotelPage extends BasePage {
     public void verificarMensajeIntentarIngresarLugarDestino(){
         clic(esperarElementoWeb(byInputLugarDestino));
         getActions().moveToElement(buscarElementoWeb(byInputLugarDestino)).click().perform();
-        String messageEsperado = FixEncoding.corregirEncoding("PRIMERO, SELECCIONA CIUDAD DE ORIGEN");
-        String messageActual = obtenerTexto(esperarElementoWeb(byMessagePrimerVerficacion));
-        Assertions.assertEquals(messageEsperado, messageActual);
+        validarMensaje("PRIMERO, SELECCIONA CIUDAD DE ORIGEN", esperarElementoWeb(byMessagePrimerVerficacion));
     }
 
     public void agregarLugarOrigen(String texto){
@@ -86,20 +84,8 @@ public class TrenHotelPage extends BasePage {
     public void filtrarPrecio(){
         clic(esperarElementoWeb(byBtnPrecios));
         esperarXsegundos(getTiempoCortoEspera());
-        WebElement divPuntoMovilPrecios = esperarElementoWeb(byDivPunteroMovil);
-        int initialX = divPuntoMovilPrecios.getLocation().getX();
-        WebElement maxPrecio = buscarElementosWeb(byDivMontoMaxPrecio).get(1);
-        getActions().clickAndHold(divPuntoMovilPrecios).perform();
-        do {
-            getActions().moveByOffset(-1, 0).perform();
-            if (obtenerTexto(maxPrecio).contains("1000")) {
-                break;
-            }
-        } while (divPuntoMovilPrecios.getLocation().getX() < initialX);
-        getActions().release().perform();
-        String messageEsperado = "Max.\n1000 \u20ac";
-        String messageActual = obtenerTexto(maxPrecio);
-        Assertions.assertEquals(messageEsperado, messageActual.trim());
+        agarrarArrastrarPuntero_RangoPrecios(byDivPunteroMovil,byDivMontoMaxPrecio, 1, "1000", -1);
+        validarMensajeSinFixEncoding("Max.\n1000 \u20ac", buscarElementosWeb(byDivMontoMaxPrecio).get(1));
         clic(esperarElementoWeb(byBtnAplicarFiltro));
     }
 
@@ -117,9 +103,24 @@ public class TrenHotelPage extends BasePage {
         clic(esperarElementoWeb(byBtnAplicarFiltro));
     }
 
-    public void validarMensajeCantResultados(){
-        String messageEsperado = FixEncoding.corregirEncoding("1 resultado encontrado para 18 mar - 24 mar");
-        String messageActual = obtenerTexto(esperarElementoWeb(byMessageCantResultados));
-        Assertions.assertEquals(messageEsperado, messageActual);
+    //TC011_Busqueda_TrenXHotel_RangoPrecios
+    public void ejecutador_TC011(String lugarOrigen, String lugarDestino, String resultadoFinalEsperado){
+        verificarMensajeIntentarIngresarLugarDestino();
+        esperarXsegundos(getTiempoMedioEspera());
+        agregarLugarOrigen(lugarOrigen);
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarLugarDestino(lugarDestino);
+        esperarXsegundos(getTiempoCortoEspera());
+        establecerFechas();
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarViajeroYBuscar();
+        esperarXsegundos(getTiempoLargoEspera());
+        aplicarFiltroValoracion();
+        esperarXsegundos(getTiempoLargoEspera());
+        aplicarFiltroTipoAlojamiento();
+        esperarXsegundos(getTiempoLargoEspera());
+        filtrarPrecio();
+        esperarXsegundos(getTiempoLargoEspera());
+        validarMensaje(resultadoFinalEsperado, esperarElementoWeb(By.xpath("//span[contains(text(),'" + resultadoFinalEsperado + "')]")));
     }
 }

@@ -1,9 +1,7 @@
 package proyecto.utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -153,4 +151,46 @@ public class BasePage {
             driver.switchTo().window(ventana);
         }
     }
+
+    public void buscarYClick(By localizadorClickeable, By tituloSeccion){
+        boolean found = false;
+        while (!found) {
+            try {
+                clic(esperarElementoWeb(localizadorClickeable));
+                found = true;
+            } catch (NoSuchElementException | ElementClickInterceptedException e) {
+                hacerScrollHasta(esperarElementoWeb(tituloSeccion));
+            }
+        }
+        esperarXsegundos(getTiempoMedioEspera());
+    }
+
+    public void validarMensaje(String messageExpected, WebElement MessageActual){
+        Assertions.assertEquals(FixEncoding.corregirEncoding(messageExpected), obtenerTexto(MessageActual));
+    }
+
+    public void validarMensajeSinFixEncoding(String messageExpected, WebElement MessageActual){
+        Assertions.assertEquals(messageExpected, obtenerTexto(MessageActual));
+    }
+
+    public void agarrarArrastrarPuntero_RangoPrecios(By punteroMovil, By montoEvaluar, int indexMontoEvaluar, String monto, int direccion){
+        WebElement divPuntoMovilPrecios = esperarElementoWeb(punteroMovil);
+        int initialX = divPuntoMovilPrecios.getLocation().getX();
+        WebElement montoPrecio = buscarElementosWeb(montoEvaluar).get(indexMontoEvaluar);
+        getActions().clickAndHold(divPuntoMovilPrecios).perform();
+        do {
+            getActions().moveByOffset(direccion, 0).perform();
+            if (obtenerTexto(montoPrecio).contains(monto)) {
+                break;
+            }
+            if (direccion == -1 && divPuntoMovilPrecios.getLocation().getX() >= initialX){
+                break;
+            }
+            if (direccion == 1 && divPuntoMovilPrecios.getLocation().getX() <= initialX){
+                break;
+            }
+        } while (true);
+        getActions().release().perform();
+    }
+
 }

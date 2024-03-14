@@ -20,8 +20,6 @@ public class HotelPage extends BasePage {
 
     By byBtnAplicarFiltro = By.xpath("//button[contains(text(),'Aplicar')]");
 
-    By byMessageCantResultadosHotelCasa = By.xpath("//span[contains(text(),'5 resultados encontrados para 18 mar - 20 mar')]");
-
     By byBtnLimpiarLugarAlojamiento = By.xpath("//div[@aria-label='Hoteles']//button[@aria-label='Limpiar']");
     By byInputLugarAlojamientoEsqui = By.xpath("//input[@id=':R4sd9lalamt2mm:']");
     By byOptionSierraNevada = By.xpath("//li[@id=':R4sd9lalamt2mm:-option-0']");
@@ -46,7 +44,6 @@ public class HotelPage extends BasePage {
     By byDivTituloValoracion = By.xpath("//div[contains(text(),'" + FixEncoding.corregirEncoding("Valoración") + "')]");
     By byDivValoracionExcelente = By.xpath("//div[contains(text(),'87+')]");
 
-
     By byDivTituloServicios = By.xpath("//div[contains(text(),'Servicios')]");
     By byDivWifiGratis = By.xpath("//div[contains(text(),'Wifi gratis') and contains(@class, 'listbox-label')]");
     By byDivParking = By.xpath("//div[contains(text(),'Parking') and contains(@class, 'listbox-label')]");
@@ -55,23 +52,8 @@ public class HotelPage extends BasePage {
 
     By byDivAplicarTodosFiltros = By.xpath("//div[contains(text(),'Aplicar')]");
 
-    By byMessageCantResultadosHotelEsqui = By.xpath("//span[contains(text(),'5 resultados encontrados para 18 mar - 10 abr')]");
-
     public HotelPage(WebDriver driver) {
         super(driver);
-    }
-
-    public void buscarYClick(By localizadorClickeable, By tituloSeccion){
-        boolean found = false;
-        while (!found) {
-            try {
-                clic(esperarElementoWeb(localizadorClickeable));
-                found = true;
-            } catch (NoSuchElementException | ElementClickInterceptedException e) {
-                hacerScrollHasta(esperarElementoWeb(tituloSeccion));
-            }
-        }
-        esperarXsegundos(getTiempoMedioEspera());
     }
 
     public void ingresarPrimerosDatos(String texto){
@@ -85,32 +67,14 @@ public class HotelPage extends BasePage {
         clic(buscarElementosWeb(byBtnBuscar).get(0));
     }
 
-    public void filtrarPrecio(){
+    public void filtrarPrecio(String resultadoFinalEsperado){
         clic(esperarElementoWeb(byBtnPrecios));
         esperarXsegundos(getTiempoCortoEspera());
-        WebElement divPuntoMovilPrecios = esperarElementoWeb(byDivPunteroMovil);
-        int initialX = divPuntoMovilPrecios.getLocation().getX();
-        WebElement maxPrecio = buscarElementosWeb(byDivMontoMinMaxPrecio).get(1);
-        getActions().clickAndHold(divPuntoMovilPrecios).perform();
-        do {
-            getActions().moveByOffset(-1, 0).perform();
-            if (obtenerTexto(maxPrecio).contains("200")) {
-                break;
-            }
-        } while (divPuntoMovilPrecios.getLocation().getX() < initialX);
-        getActions().release().perform();
-        String messageEsperado = "Max.\n200 \u20ac";
-        String messageActual = obtenerTexto(maxPrecio);
-        Assertions.assertEquals(messageEsperado, messageActual);
+        agarrarArrastrarPuntero_RangoPrecios(byDivPunteroMovil,byDivMontoMinMaxPrecio, 1, "200", -1);
+        validarMensajeSinFixEncoding("Max.\n200 \u20ac", buscarElementosWeb(byDivMontoMinMaxPrecio).get(1));
         clic(esperarElementoWeb(byBtnAplicarFiltro));
         esperarXsegundos(getTiempoLargoEspera());
-        this.validarMensajeCantResultados("5 resultados encontrados para 18 mar - 20 mar", byMessageCantResultadosHotelCasa);
-    }
-
-    public void validarMensajeCantResultados(String messageExpected, By localizatorMessageActual){
-        String messageEsperado = FixEncoding.corregirEncoding(messageExpected);
-        String messageActual = obtenerTexto(esperarElementoWeb(localizatorMessageActual));
-        Assertions.assertEquals(messageEsperado, messageActual);
+        validarMensaje(resultadoFinalEsperado, esperarElementoWeb(By.xpath("//span[contains(text(),'" + resultadoFinalEsperado + "')]")));
     }
 
     public void agregarDatosEsqui(String texto){
@@ -124,41 +88,43 @@ public class HotelPage extends BasePage {
         clic(buscarElementosWeb(byBtnBuscar).get(0));
     }
 
-    public void filtrarVariosDatos(){
+    public void filtrarVariosDatos(String resultadoFinalEsperado){
         clic(esperarElementoWeb(byBtnTodosFiltros));
         esperarXsegundos(getTiempoMedioEspera());
 
         clic(esperarElementoWeb(byFiltroCancelacionGratis));
         esperarXsegundos(getTiempoMedioEspera());
 
-        WebElement divPuntoIzquierdoMovilPrecios = esperarElementoWeb(byDivPrecioPunteroIzquierdoMovil);
-        int initialIzquierdoX = divPuntoIzquierdoMovilPrecios.getLocation().getX();
-        WebElement minPrecio = buscarElementosWeb(byDivMontoMinMaxPrecio).get(0);
-        getActions().clickAndHold(divPuntoIzquierdoMovilPrecios).perform();
-        do {
-            getActions().moveByOffset(1, 0).perform();
-            if (obtenerTexto(minPrecio).contains("1700")) {
-                break;
-            }
-        } while (divPuntoIzquierdoMovilPrecios.getLocation().getX() > initialIzquierdoX);
-        getActions().release().perform();
-        String messageEsperado = "Min.\n1700 \u20ac";
-        String messageActual = obtenerTexto(minPrecio);
-        Assertions.assertEquals(messageEsperado, messageActual);
+        agarrarArrastrarPuntero_RangoPrecios(byDivPrecioPunteroIzquierdoMovil,byDivMontoMinMaxPrecio, 0, "1700", 1);
+        validarMensajeSinFixEncoding("Min.\n1700 \u20ac", buscarElementosWeb(byDivMontoMinMaxPrecio).get(0));
         esperarXsegundos(getTiempoMedioEspera());
 
-        this.buscarYClick(byLiHotelTipoAlojamiento, byLiHotelTipoAlojamiento);
-        this.buscarYClick(byLi4Estrellas, byDivTituloEstrellas);
-        this.buscarYClick(byDivSoloAlojamiento, byDivTituloRegimen);
-        this.buscarYClick(byDivDesayuno, byDivTituloRegimen);
-        this.buscarYClick(byDivPensionCompleta, byDivTituloRegimen);
-        this.buscarYClick(byDivValoracionExcelente, byDivTituloValoracion);
-        this.buscarYClick(byDivWifiGratis, byDivTituloServicios);
-        this.buscarYClick(byDivParking, byDivTituloServicios);
-        this.buscarYClick(byDivSpa, byDivTituloServicios);
-        this.buscarYClick(byDivInstalacionesFitness, byDivTituloServicios);
+        buscarYClick(byLiHotelTipoAlojamiento, byLiHotelTipoAlojamiento);
+        buscarYClick(byLi4Estrellas, byDivTituloEstrellas);
+        buscarYClick(byDivSoloAlojamiento, byDivTituloRegimen);
+        buscarYClick(byDivDesayuno, byDivTituloRegimen);
+        buscarYClick(byDivPensionCompleta, byDivTituloRegimen);
+        buscarYClick(byDivValoracionExcelente, byDivTituloValoracion);
+        buscarYClick(byDivWifiGratis, byDivTituloServicios);
+        buscarYClick(byDivParking, byDivTituloServicios);
+        buscarYClick(byDivSpa, byDivTituloServicios);
+        buscarYClick(byDivInstalacionesFitness, byDivTituloServicios);
         clic(esperarElementoWeb(byDivAplicarTodosFiltros));
         esperarXsegundos(getTiempoLargoEspera());
-        this.validarMensajeCantResultados("5 resultados encontrados para 18 mar - 10 abr", byMessageCantResultadosHotelEsqui);
+        validarMensaje(resultadoFinalEsperado, esperarElementoWeb(By.xpath("//span[contains(text(),'" + resultadoFinalEsperado + "')]")));
+    }
+
+    //T015_Busqueda_HotelesCasa_RangoPrecios
+    public void ejecutador_T015(String lugarAlojamiento, String resultadoFinalEsperado){
+        ingresarPrimerosDatos(lugarAlojamiento);
+        esperarXsegundos(getTiempoLargoEspera());
+        filtrarPrecio(resultadoFinalEsperado);
+    }
+
+    //T017_Busqueda_HotelesEsqui_VariosFiltrosDeUna
+    public void ejecutador_T017(String lugarAlojamiento, String resultadoFinalEsperado){
+        agregarDatosEsqui(lugarAlojamiento);
+        esperarXsegundos(getTiempoMedioEspera());
+        filtrarVariosDatos(resultadoFinalEsperado);
     }
 }

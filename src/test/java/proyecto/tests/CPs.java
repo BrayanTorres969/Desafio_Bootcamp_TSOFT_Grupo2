@@ -43,26 +43,8 @@ public class CPs {
         home.irAMultidestino();
         home.cambiarALaUltimaVentanaAbierta();
         multidestino = new MultidestinoPage(driver);
-        multidestino.addDestination();
-        multidestino.addDestination();
-        multidestino.esperarXsegundos(multidestino.getTiempoCortoEspera());
-        multidestino.agregarPrimerDestinoYFecha("Madrid");
-        multidestino.esperarXsegundos(multidestino.getTiempoCortoEspera());
-        multidestino.agregarSegundoDestinoYFecha("Barcelona");
-        multidestino.esperarXsegundos(multidestino.getTiempoCortoEspera());
-        multidestino.agregarTercerDestinoYFecha("Cuzco");
-        multidestino.esperarXsegundos(multidestino.getTiempoCortoEspera());
-        multidestino.agregarCuartoDestinoYFecha("Lima");
-        multidestino.esperarXsegundos(multidestino.getTiempoCortoEspera());
-        multidestino.aceptarCookies();
-        multidestino.esperarXsegundos(multidestino.getTiempoLargoEspera());
-        multidestino.aumentarPasajerosYPiezaEquipaje();
-        multidestino.esperarXsegundos(multidestino.getTiempoLargoEspera());
-        multidestino.filtrarSoloVuelos();
-        multidestino.esperarXsegundos(multidestino.getTiempoLargoEspera());
-        multidestino.filtrarClaseViaje();
-        multidestino.esperarXsegundos(multidestino.getTiempoLargoEspera());
-        multidestino.validarCampoOrigen();
+        multidestino.ejecutador_TC006("Madrid", "Barcelona", "Cuzco", "Lima",
+                "No hay resultados para esta búsqueda");
     }
 
     @Test
@@ -70,23 +52,7 @@ public class CPs {
         home.irATrenHotel();
         home.esperarXsegundos(home.getTiempoMedioEspera());
         trenHotel = new TrenHotelPage(driver);
-        trenHotel.verificarMensajeIntentarIngresarLugarDestino();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoMedioEspera());
-        trenHotel.agregarLugarOrigen("Madrid");
-        trenHotel.esperarXsegundos(trenHotel.getTiempoCortoEspera());
-        trenHotel.agregarLugarDestino("Barcelona");
-        trenHotel.esperarXsegundos(trenHotel.getTiempoCortoEspera());
-        trenHotel.establecerFechas();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoCortoEspera());
-        trenHotel.agregarViajeroYBuscar();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoLargoEspera());
-        trenHotel.aplicarFiltroValoracion();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoLargoEspera());
-        trenHotel.aplicarFiltroTipoAlojamiento();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoLargoEspera());
-        trenHotel.filtrarPrecio();
-        trenHotel.esperarXsegundos(trenHotel.getTiempoLargoEspera());
-        trenHotel.validarMensajeCantResultados();
+        trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
     }
 
     @Test
@@ -94,9 +60,7 @@ public class CPs {
         home.irAHotelCasa();
         home.esperarXsegundos(home.getTiempoMedioEspera());
         hotelPage = new HotelPage(driver);
-        hotelPage.ingresarPrimerosDatos("Andorra");
-        hotelPage.esperarXsegundos(hotelPage.getTiempoLargoEspera());
-        hotelPage.filtrarPrecio();
+        hotelPage.ejecutador_T015("Andorra", "5 resultados encontrados para 18 mar - 20 mar");
     }
 
     @Test
@@ -104,8 +68,6 @@ public class CPs {
         home.irAHotelEsqui();
         home.esperarXsegundos(home.getTiempoMedioEspera());
         hotelPage = new HotelPage(driver);
-        hotelPage.agregarDatosEsqui("Andorra la Vella");
-        hotelPage.esperarXsegundos(hotelPage.getTiempoMedioEspera());
-        hotelPage.filtrarVariosDatos();
+        hotelPage.ejecutador_T017("Andorra la Vella", "4 resultados encontrados para 18 mar - 10 abr");
     }
 }

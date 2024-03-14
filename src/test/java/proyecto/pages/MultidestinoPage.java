@@ -54,7 +54,6 @@ public class MultidestinoPage extends BasePage {
     By byOptionPrimeraClase = By.xpath("//span[contains(text(),'Primera clase')]");
 
     By byTituloEscalas = By.xpath("//div[contains(text(),'Escalas')]");
-    By byMessageValidate = By.xpath("//div[contains(text(),'"+ FixEncoding.corregirEncoding("No hay resultados para esta búsqueda") + "')]");
 
     public MultidestinoPage(WebDriver driver) {
         super(driver);
@@ -151,9 +150,28 @@ public class MultidestinoPage extends BasePage {
         clic(byTituloEscalas);
     }
 
-    public void validarCampoOrigen() {
-        String messageEsperado = FixEncoding.corregirEncoding("No hay resultados para esta búsqueda");
-        String messageActual = obtenerTexto(esperarElementoWeb(byMessageValidate));
-        Assertions.assertEquals(messageEsperado, messageActual);
+    //TC006_Busqueda_Vuelos_Multidestino
+    public void ejecutador_TC006(String primerDestino, String segundoDestino, String tercerDestino, String cuartoDestino,
+                                String resultadoFinalEsperado){
+        addDestination();
+        addDestination();
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarPrimerDestinoYFecha(primerDestino);
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarSegundoDestinoYFecha(segundoDestino);
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarTercerDestinoYFecha(tercerDestino);
+        esperarXsegundos(getTiempoCortoEspera());
+        agregarCuartoDestinoYFecha(cuartoDestino);
+        esperarXsegundos(getTiempoCortoEspera());
+        aceptarCookies();
+        esperarXsegundos(getTiempoLargoEspera());
+        aumentarPasajerosYPiezaEquipaje();
+        esperarXsegundos(getTiempoLargoEspera());
+        filtrarSoloVuelos();
+        esperarXsegundos(getTiempoLargoEspera());
+        filtrarClaseViaje();
+        esperarXsegundos(getTiempoLargoEspera());
+        validarMensaje(resultadoFinalEsperado, esperarElementoWeb(By.xpath("//div[contains(text(),'"+ FixEncoding.corregirEncoding(resultadoFinalEsperado) + "')]")));
     }
 }
