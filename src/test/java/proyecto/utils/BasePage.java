@@ -2,6 +2,10 @@ package proyecto.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -143,6 +147,9 @@ public class BasePage {
     public void hacerScrollTopPagina(){
         js.executeScript("window.scrollTo(0, 0);");
     }
+    public void volverInicioPagina() {
+        js.executeScript("window.scrollTo(0, 0);");
+    }
 
     public void cambiarALaUltimaVentanaAbierta() {
         Set<String> ventanas = driver.getWindowHandles();
@@ -193,4 +200,18 @@ public class BasePage {
         getActions().release().perform();
     }
 
+    public void hacerHoverEnElemento(By localizador){
+        Actions actions = new Actions(driver);
+        actions.moveToElement(buscarElementoWeb(localizador)).perform();
+    }
+
+    public WebElement esperarElementoWeb(WebElement elemento){
+        espera = new WebDriverWait(this.driver,30);
+        return espera.until(ExpectedConditions.visibilityOf(elemento));
+    }
+
+    public WebElement esperarElementoWebMil(By localizador){
+        espera = new WebDriverWait(this.driver,1000);
+        return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
 }
