@@ -113,4 +113,14 @@ public class BasePage {
         Actions actions = new Actions(driver);
         actions.moveToElement(buscarElementoWeb(localizador)).perform();
     }
+
+    public WebElement esperarElementoWeb(WebElement elemento){
+        espera = new WebDriverWait(this.driver,30);
+        return espera.until(ExpectedConditions.visibilityOf(elemento));
+    }
+
+    public WebElement esperarElementoWebMil(By localizador){
+        espera = new WebDriverWait(this.driver,1000);
+        return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
+    }
 }
