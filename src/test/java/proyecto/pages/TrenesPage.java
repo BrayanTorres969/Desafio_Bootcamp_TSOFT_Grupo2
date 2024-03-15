@@ -126,9 +126,9 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(1000);
         clic(byselectSr);
         esperarXsegundos(1000);
-        clic(bynombrePasajero);
+        //clic(bynombrePasajero);
         agregarTexto(bynombrePasajero,nombre);
-        clic(byapellidoPasajero);
+        //clic(byapellidoPasajero);
         agregarTexto(byapellidoPasajero,apellido);
         esperarXsegundos(1000);
         agregarTexto(bydiaPasajero,dia);
