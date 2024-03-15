@@ -204,10 +204,9 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(10000);
         WebElement boton = driver.findElement(By.id("id-Equipaje de mano incl."));
 
-        // Método 1: Cambiar el valor de aria-checked a true
-        boton.getAttribute("aria-checked"); // Verificamos el estado actual
-        if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
-            boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
         }
     }
 
@@ -215,10 +214,9 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(10000);
         WebElement boton = driver.findElement(By.id("id-1 escala-way0"));
 
-        // Método 1: Cambiar el valor de aria-checked a true
-        boton.getAttribute("aria-checked"); // Verificamos el estado actual
-        if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
-            boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
         }
     }
 
@@ -226,10 +224,10 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(10000);
         WebElement boton = driver.findElement(By.id("id-Madrid Puerta de Atocha (XOC)-way0-DepartureLocationsFilter"));
 
-        // Método 1: Cambiar el valor de aria-checked a true
-        boton.getAttribute("aria-checked"); // Verificamos el estado actual
-        if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
-            boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
         }
     }
 
@@ -237,10 +235,10 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(10000);
         WebElement boton = driver.findElement(By.id("id-Madrid Puerta de Atocha (XOC)-way1-ArrivalLocationsFilter"));
 
-        // Método 1: Cambiar el valor de aria-checked a true
-        boton.getAttribute("aria-checked"); // Verificamos el estado actual
-        if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
-            boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
         }
     }
 

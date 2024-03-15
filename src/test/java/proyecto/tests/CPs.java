@@ -60,9 +60,6 @@ public class CPs {
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
-        //Aceptar cookies
-        //home.aceptarCookies();
-
         home.esperarXsegundos(1000);
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
@@ -114,9 +111,6 @@ public class CPs {
 
 
         dataCPs = DataDriven.prepararData("TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos");
-
-        //Aceptar cookies
-        //home.aceptarCookies();
 
         home.esperarXsegundos(1000);
         home.irAVuelos();
