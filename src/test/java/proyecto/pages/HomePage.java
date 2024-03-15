@@ -29,10 +29,16 @@ public class HomePage extends BasePage {
     By byFechaEntrada = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='16']");
     By byFechaSalida = By.xpath("//div[@aria-labelledby='2-2024']//button[text()='18']");
     By byPersonas = By.xpath("//div[@class='d-1k5t2mm']//button[contains(@aria-label, 'Aumentar')]");
-    By byBuscarHotel = By.xpath("//*[@id=\"hub-csw-container\"]/div/div[4]/div/form/div/div[3]/div/button");
+    By byBuscarHotel = By.xpath("//div[@aria-label='Hoteles']//button[@type='submit']");
     By byBtnLimpiar = By.xpath("//div[@aria-label='Hoteles']//button[@aria-label='Limpiar']");
     By byNavBarHoteles = By.xpath("//p[contains(text(),'Hoteles')]");
     By byBtnCasas = By.xpath("//a[@title='Casas']");
+    By hotelNav = By.xpath("//div[@data-contenthub-id='navigation']//p[contains(text(),'Hoteles')]");
+    By inputHotel = By.xpath("//input[@id=':R4sd9lalamt2mm:']");
+    By inputEntrada = By.xpath("//div[@aria-label='Hoteles']//button[@aria-label='Fecha de entrada']");
+    By tipos = By.xpath("//ul[@id=':R4sd9lalamt2mm:-listbox']//div[contains(@class,'swipe-wrapper')]//li[@id=':R4sd9lalamt2mm:-option-0']");
+
+    By inputPersonas = By.xpath("//div[@aria-label='Hoteles']//button[contains(span,'spedes')]");
 
 
     public HomePage(WebDriver driver) {
@@ -113,5 +119,24 @@ public class HomePage extends BasePage {
             clic(esperarElementoWeb(byPersonas));
         }
         clic(esperarElementoWeb(byBuscarHotel));
+    }
+
+    public void buscarHotelNav(String texto){
+        esperarXsegundos(2000);
+        clic(esperarElementoWeb(hotelNav));
+        clic(inputHotel);
+        esperarXsegundos(2000);
+        agregarTexto(inputHotel,texto);
+
+        clic(esperarElementoWeb(inputEntrada));
+        clic(esperarElementoWeb(byFechaEntrada));
+        clic(esperarElementoWeb(byFechaSalida));
+        clic(inputHotel);
+        clic(inputPersonas);
+        for (int i = 0; i < 2; i++) {
+            clic(esperarElementoWeb(byPersonas));
+        }
+        clic(byBuscarHotel);
+        esperarXsegundos(2000);
     }
 }
