@@ -1,6 +1,7 @@
 package proyecto.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -42,7 +43,9 @@ public class AlojamientoAlterPage extends BasePage {
     By byCardResultadosEscapadasAndorra = By.xpath("//div[@data-testid='card-container']");
     By byTituloAlojamRegimen = By.xpath(FixEncoding.corregirEncoding("//h2[contains(text(),'Eligir alojamiento y régimen')]"));
     By byBtnModificarAlojRegimen = By.xpath("//button[contains(text(),'Modificar')]");
-
+    By navMejorVal = By.xpath("//div[contains(@class,'list-container')]//div[contains(text(),'Mejor valorados')]");
+    By listaCards = By.xpath("//a[contains(@class,'openx-ui-tile-')]");
+    By esconderMapa = By.xpath("//div[@id='view-mode']//button");
     /// //button[contains(text(),'Modificar')]
     public AlojamientoAlterPage(WebDriver driver) {
         super(driver);
@@ -151,6 +154,17 @@ public class AlojamientoAlterPage extends BasePage {
         WebElement resultado = obtenerResultadosEscapesAndorra().get(0);
         hacerHoverEnElemento(resultado);
         clic(resultado);
+    }
+
+    public void compartirInfo(){
+        clic(esperarElementoWeb(buscarElementosWeb(listaCards).get(0)));
+        try {
+            Thread.sleep(2000);
+            clic(esperarElementoWeb(esconderMapa));
+        } catch (InterruptedException | NoSuchElementException e) {
+            System.out.println(e);
+        }
+        clic(esperarElementoWeb(navMejorVal));
     }
 }
 
