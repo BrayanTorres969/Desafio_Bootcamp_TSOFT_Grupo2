@@ -145,9 +145,10 @@ public class BasePage {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
-    public void hacerScrollTopPagina(){
+    public void hacerScrollTopPagina() {
         js.executeScript("window.scrollTo(0, 0);");
     }
+
     public void volverInicioPagina() {
         js.executeScript("window.scrollTo(0, 0);");
     }
@@ -160,7 +161,7 @@ public class BasePage {
         }
     }
 
-    public void buscarYClick(By localizadorClickeable, By tituloSeccion){
+    public void buscarYClick(By localizadorClickeable, By tituloSeccion) {
         boolean found = false;
         while (!found) {
             try {
@@ -173,15 +174,15 @@ public class BasePage {
         esperarXsegundos(getTiempoMedioEspera());
     }
 
-    public void validarMensaje(String messageExpected, WebElement MessageActual){
+    public void validarMensaje(String messageExpected, WebElement MessageActual) {
         Assertions.assertEquals(FixEncoding.corregirEncoding(messageExpected), obtenerTexto(MessageActual));
     }
 
-    public void validarMensajeSinFixEncoding(String messageExpected, WebElement MessageActual){
+    public void validarMensajeSinFixEncoding(String messageExpected, WebElement MessageActual) {
         Assertions.assertEquals(messageExpected, obtenerTexto(MessageActual));
     }
 
-    public void agarrarArrastrarPuntero_RangoPrecios(By punteroMovil, By montoEvaluar, int indexMontoEvaluar, String monto, int direccion){
+    public void agarrarArrastrarPuntero_RangoPrecios(By punteroMovil, By montoEvaluar, int indexMontoEvaluar, String monto, int direccion) {
         WebElement divPuntoMovilPrecios = esperarElementoWeb(punteroMovil);
         int initialX = divPuntoMovilPrecios.getLocation().getX();
         WebElement montoPrecio = buscarElementosWeb(montoEvaluar).get(indexMontoEvaluar);
@@ -191,32 +192,37 @@ public class BasePage {
             if (obtenerTexto(montoPrecio).contains(monto)) {
                 break;
             }
-            if (direccion == -1 && divPuntoMovilPrecios.getLocation().getX() >= initialX){
+            if (direccion == -1 && divPuntoMovilPrecios.getLocation().getX() >= initialX) {
                 break;
             }
-            if (direccion == 1 && divPuntoMovilPrecios.getLocation().getX() <= initialX){
+            if (direccion == 1 && divPuntoMovilPrecios.getLocation().getX() <= initialX) {
                 break;
             }
         } while (true);
         getActions().release().perform();
     }
 
-    public void hacerHoverEnElemento(By localizador){
+    public void hacerHoverEnElemento(By localizador) {
         Actions actions = new Actions(driver);
         actions.moveToElement(buscarElementoWeb(localizador)).perform();
     }
 
-    public WebElement esperarElementoWeb(WebElement elemento){
-        espera = new WebDriverWait(this.driver,30);
+    public void hacerHoverEnElemento(WebElement elemento) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(elemento).perform();
+    }
+
+    public WebElement esperarElementoWeb(WebElement elemento) {
+        espera = new WebDriverWait(this.driver, 30);
         return espera.until(ExpectedConditions.visibilityOf(elemento));
     }
 
-    public WebElement esperarElementoWebMil(By localizador){
-        espera = new WebDriverWait(this.driver,1000);
+    public WebElement esperarElementoWebMil(By localizador) {
+        espera = new WebDriverWait(this.driver, 1000);
         return espera.until(ExpectedConditions.presenceOfElementLocated(localizador));
     }
 
-    public void seleccionarCmbPorValue(WebElement elemento, String value){
+    public void seleccionarCmbPorValue(WebElement elemento, String value) {
         Select selector = new Select(elemento);
         selector.selectByVisibleText(value);
     }

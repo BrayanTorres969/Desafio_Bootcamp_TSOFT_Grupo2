@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import proyecto.utils.BasePage;
+import proyecto.utils.FixEncoding;
 
+import java.util.List;
 import java.util.Set;
 
 public class AlojamientoAlterPage extends BasePage {
     int numLista = 1;
-    By ur = By.xpath("//a[contains(@class, 'openx-ui-tile-"+numLista+"') and substring(@class, string-length(@class) - string-length('openx-ui-tile-"+numLista+"') + 1) = 'openx-ui-tile-"+numLista+"']");
+    By ur = By.xpath("//a[contains(@class, 'openx-ui-tile-" + numLista + "') and substring(@class, string-length(@class) - string-length('openx-ui-tile-" + numLista + "') + 1) = 'openx-ui-tile-" + numLista + "']");
     By cards = By.xpath("//div[contains(@data-testid,'card-container')]");
     By compartir = By.xpath("//button[@id='menu-button--menu--:r0:']");
     By botonFiltros = By.xpath("//div[@id='Pill-AllFiltersContainer']");
@@ -34,38 +36,46 @@ public class AlojamientoAlterPage extends BasePage {
     By caracPlaya = By.xpath("//li[@id='exp_elem_accomodation_theme_beachhotel']");
     By caracResort = By.xpath("//li[@id='exp_elem_accomodation_theme_resorthotel']");
     By btnAplicar = By.xpath("//div[contains(@class,'DialogFooter')]//div[contains(text(),'Aplicar')]");
+
+    By bySeccionProxEscapada = By.xpath(FixEncoding.corregirEncoding("//h3[contains(text(),'¿Cuál será tu próxima escapada?')]"));
+    By byCardEscapadasAndorra = By.xpath("/html/body/div[2]/div[6]/div/div[2]/div/div/div[3]/div/div/div[2]/div/a/div/figure/img[2]");
+    By byCardResultadosEscapadasAndorra = By.xpath("//div[@data-testid='card-container']");
+    By byTituloAlojamRegimen = By.xpath(FixEncoding.corregirEncoding("//h2[contains(text(),'Eligir alojamiento y régimen')]"));
+    By byBtnModificarAlojRegimen = By.xpath("//button[contains(text(),'Modificar')]");
+
+    /// //button[contains(text(),'Modificar')]
     public AlojamientoAlterPage(WebDriver driver) {
         super(driver);
     }
 
-    public void seleccionarHotelAlternativo(){
+    public void seleccionarHotelAlternativo() {
         //clic(esperarElementoWeb(byHotelAlternativo));
 
         cargarSitio(buscarElementoWeb(ur).getAttribute("href"));
     }
 
-    public void seleccionarCard(int i){
+    public void seleccionarCard(int i) {
         esperarXsegundos(5000);
         clic(esperarElementoWeb(buscarElementosWeb(cards).get(i)));
     }
 
-    public void seleccionarMeal(){
+    public void seleccionarMeal() {
         esperarXsegundos(2000);
         clic(esperarElementoWeb(buscarElementosWeb(ulMeals).get(2)));
     }
 
-    public void cambioVentana(WebDriver driver){
+    public void cambioVentana(WebDriver driver) {
 
         esperarXsegundos(2000);
         Set<String> ventanas = driver.getWindowHandles();
 
-        for(String ventana : ventanas){
+        for (String ventana : ventanas) {
             driver.switchTo().window(ventana);
         }
         clic(esperarElementoWeb(compartir));
     }
 
-    public void filtrarDetalleCard(WebDriver driver){
+    public void filtrarDetalleCard(WebDriver driver) {
         esperarXsegundos(4000);
         clic(esperarElementoWeb(botonFiltros));
         esperarXsegundos(1000);
@@ -115,6 +125,32 @@ public class AlojamientoAlterPage extends BasePage {
 
         seleccionarCard(0);
 
+    }
+
+    public void hacerScrollHastaProxEscapada() {
+        hacerScrollHasta(buscarElementoWeb(bySeccionProxEscapada));
+    }
+
+    public void seleccionarBtnModificarAlojRegimen() {
+        hacerScrollHasta(buscarElementoWeb(byTituloAlojamRegimen));
+        esperarXsegundos(2000);
+        clic(byBtnModificarAlojRegimen);
+    }
+
+    public void seleccionarEscapadasAndorra() {
+        hacerHoverEnElemento(byCardEscapadasAndorra);
+        esperarXsegundos(2000);
+        clic(byCardEscapadasAndorra);
+    }
+
+    public List<WebElement> obtenerResultadosEscapesAndorra() {
+        return buscarElementosWeb(byCardResultadosEscapadasAndorra);
+    }
+
+    public void seleccionarPrimerResultadoEscapeAndorra() {
+        WebElement resultado = obtenerResultadosEscapesAndorra().get(0);
+        hacerHoverEnElemento(resultado);
+        clic(resultado);
     }
 }
 
