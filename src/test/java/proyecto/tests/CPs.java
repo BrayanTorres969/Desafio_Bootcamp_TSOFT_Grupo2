@@ -498,11 +498,12 @@ public class CPs {
     @Test
     @Order(16)
     public void TC0016_Compartir_InfoCasa_Contacto() {
-        home.buscarHoteles();
+        home.buscarHotelNav("Playa");
         alterPage = new AlojamientoAlterPage(driver);
-        alterPage.seleccionarHotelAlternativo();
+        alterPage.compartirInfo();
         alterPage.seleccionarCard(0);
         alterPage.cambioVentana(driver);
+        alterPage.esperarXsegundos(1000);
     }
 
     @Test
