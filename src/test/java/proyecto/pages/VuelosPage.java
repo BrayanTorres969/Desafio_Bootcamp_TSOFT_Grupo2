@@ -11,20 +11,18 @@ import java.util.List;
 
 public class VuelosPage extends BasePage {
     By byCardCategoriaVuelos = By.xpath("//span[contains(text(),'Vuelos baratos a tu destino favorito')]");
-    By byLabelEquipaje = By.xpath("//div[contains(text(), 'Equipaje')]");
     By byBtnVuelosAEuropa = By.xpath(("//p[contains(text(),'Ver las ofertas')]"));
     By byBtnVuelosFinde = By.xpath(("//p[contains(text(),'Descubrir')]"));
     By byBtnVuelosNacionales = By.xpath(("//p[contains(text(),'Reserva ya')]"));
-    By byBtnVuelosFinDeSemana = By.xpath(("//p[contains(text(),'Descubrir')]"));
     By bybtnIdaVuelta = By.xpath("//button[contains(text(),'Ida y vuelta')]");
     By bybtnSoloIda = By.xpath("//button[contains(text(),'Solo ida')]");
     By byBtnLimpiar = By.xpath("//button[@aria-label='Limpiar']");
     By byInputOrigen = By.xpath("//input[@aria-label='Origen']");
+    By byInputDestino = By.xpath("//input[@aria-label='Destino']");
     By byInputFechaDeIda = By.xpath("//button[@aria-label='Fecha de ida']");
     By byInputFechaDeVuelta = By.xpath("//button[@aria-label='Fecha de vuelta']");
     By byInputPersonas = By.xpath("//label[contains(text(),'Pasajeros y clase del vuelo')]");
     By bySeleccMetodoPago = By.xpath("//button[@aria-haspopup='listbox']");
-    By byInputDestino = By.xpath("//input[@aria-label='Destino']");
     By byBtnBuscar = By.xpath("//button[@aria-label='Buscar']");
     By byBtnSgtMes = By.xpath("//button[@aria-label='Next month']");
     By byBtnSgtClaseVuelo = By.xpath("//button[@class='d-128ddiu']");
@@ -43,7 +41,6 @@ public class VuelosPage extends BasePage {
     By byTituloTarifaVuelo = By.xpath(FixEncoding.corregirEncoding("//h4[contains(text(),'Viaja con más flexibilidad')]"));
     By byBtnSgtFormDeReservaVuelo = By.xpath("//button[contains(@class, 'lead-generation-submit__btn-revamped-cta') and contains(text(), 'Siguiente')]");
 
-    By byBtnCheckboxEquipajeFactu = By.xpath("//label[@for='id-Equipaje de mano incl.']//button[@id='id-Equipaje de mano incl.']");
     //Localizadores del formulario de Datos personales y equipaje
     By byErrorInputNombreDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el nombre')]");
     By byErrorInputApellidoDatosDeContacto = By.xpath("//div[contains(@class, 'widget-wrapper--contact')]//span[@data-testid='input-helper-text' and contains(text(),'Introduce el apellido')]");
@@ -134,13 +131,6 @@ public class VuelosPage extends BasePage {
     public void ingresarFechaDeVuelta(String rutaXpath) {
         WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
         clic(fechaSeleccionada);
-    }
-
-    public void verificarCheck(String rutaXpath){
-        String checkbox_id = "id-Equipaje de mano incl.";
-        if ((rutaXpath.compareToIgnoreCase(checkbox_id))==0){
-            //driver.execute_script(f'document.getElementById("{checkbox_id}").setAttribute("aria-checked", "true");')
-        }
     }
 
     public void seleccionarCualquierClase(){
@@ -234,7 +224,6 @@ public class VuelosPage extends BasePage {
         if (!boton.getAttribute("aria-checked").equals("true")) { // Si no está activo
             boton.sendKeys(" "); // Enviamos una tecla espaciadora para cambiar el estado
         }
-
     }
 
     public void validarRutaDetalleVuelo(String origen, String destino) {
@@ -307,9 +296,6 @@ public class VuelosPage extends BasePage {
         }
     }
 
-
-    public void validarFormDatosPersonalesYEquipaje() {}
-
     public String errorApellidoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputApellidoDatosDeContacto));
     }
@@ -321,7 +307,7 @@ public class VuelosPage extends BasePage {
     public String errorTelefonoDatosDeContactoFormDatosPersonalesYEquipaje() {
         return obtenerTexto(buscarElementoWeb(byErrorInputTelefonoDatosDeContacto));
     }
-    }
+}
 
 
 

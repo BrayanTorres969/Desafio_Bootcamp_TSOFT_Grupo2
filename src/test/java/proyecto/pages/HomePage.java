@@ -13,6 +13,7 @@ public class HomePage extends BasePage {
     By byBtnAceptarCookies = By.className("iubenda-cs-accept-btn");
 
     By byOptionTrenHotel = By.xpath("//div[contains(text(),'Tren + Hotel')]");
+    By byOptionTrenes = By.xpath("//div[contains(text(),'Trenes')]");
 
     By byBtnHoteles = By.xpath("//p[contains(text(),'Hoteles')]");
     By byOptionCasa = By.xpath("//div[contains(text(),'Casas')]");
@@ -53,6 +54,12 @@ public class HomePage extends BasePage {
         clic(esperarElementoWeb(byOptionTrenHotel));
     }
 
+    public void irATrenes() {
+        //this.aceptarCookies();
+        getActions().moveToElement(esperarElementoWeb(byBtnVerMas)).perform();
+        clic(esperarElementoWeb(byOptionTrenes));
+    }
+
     public void irAHotelCasa() {
         //this.aceptarCookies();
         getActions().moveToElement(esperarElementoWeb(byBtnHoteles)).perform();
@@ -67,11 +74,6 @@ public class HomePage extends BasePage {
 
     public void irAVuelos() {
         clic(esperarElementoWeb(byBtnVuelos));
-    }
-
-    public void irATrenes() {
-        hacerHoverEnElemento(byBtnVerMas);
-        clic(byBtnTrenes);
     }
 
     public void irACasas() {

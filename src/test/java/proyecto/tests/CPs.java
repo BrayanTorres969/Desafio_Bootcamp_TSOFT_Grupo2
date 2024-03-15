@@ -60,9 +60,6 @@ public class CPs {
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
-        //Aceptar cookies
-        //home.aceptarCookies();
-
         home.esperarXsegundos(1000);
         home.irAVuelos();
         vuelosPage = new VuelosPage(driver);
@@ -114,9 +111,6 @@ public class CPs {
 
 
         dataCPs = DataDriven.prepararData("TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos");
-
-        //Aceptar cookies
-        //home.aceptarCookies();
 
         home.esperarXsegundos(1000);
         home.irAVuelos();
@@ -428,6 +422,27 @@ public class CPs {
         home.esperarXsegundos(home.getTiempoMedioEspera());
         trenHotel = new TrenHotelPage(driver);
         trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
+    }
+
+        @Test
+    public void TC0012_Filtrado_Trenes_MAD_VLC_Precio_Equipaje_Escala_Salida_Aere_Esta () {
+
+         dataCPs = DataDriven.prepararData("TC0012_Filtrado_Trenes_MAD_VLC_Precio_Equipaje_Escala_Salida_Aere_Esta");
+
+        home.irATrenes();
+        home.esperarXsegundos(home.getTiempoMedioEspera());
+        trenesPage = new TrenesPage(driver);
+        trenesPage.esperarXsegundos(home.getTiempoMedioEspera());
+        trenesPage.insertarValores(dataCPs.get(1).trim(),dataCPs.get(2).trim());
+        trenesPage.seleccionCamposIdayVuelta(dataCPs.get(3).trim(), dataCPs.get(4).trim());
+        trenesPage.seleccionarCampoPasajeros();
+        trenesPage.buscarTrenIda();
+        trenesPage.filtrarResultadoPorMasBarato();
+        trenesPage.clickChecks(driver);
+        trenesPage.hacerScrollTopPagina();
+        trenesPage.esperarXsegundos(home.getTiempoCortoEspera());
+        trenesPage.resultadosLlenos();
+
     }
 
     @Test

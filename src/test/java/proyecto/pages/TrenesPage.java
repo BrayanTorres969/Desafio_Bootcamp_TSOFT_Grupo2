@@ -1,10 +1,13 @@
 package proyecto.pages;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import proyecto.utils.BasePage;
 import proyecto.utils.FixEncoding;
+
+import java.util.List;
 
 public class TrenesPage extends BasePage {
 
@@ -38,10 +41,19 @@ public class TrenesPage extends BasePage {
     By byBtnAsistenciaEspecial = By.id("special-assistance-checkbox");
     By byTipoSolicitud = By.xpath("//select[@data-test='special-request-structured-types']");
     By byTipoAsistencia = By.id("special-requests-structured-requirements_1");
-
+    By byInputOrigen = By.xpath("//input[@aria-label='Origen']");
+    By byInputDestino = By.xpath("//input[@aria-label='Destino']");
+    By byInputFechaDeVuelta = By.xpath("//button[@aria-label='Fecha de vuelta']");
+    By byInputPersonas = By.xpath("//label[contains(text(),'Pasajero')]");
+    By byBtnFiltrarResultadosVuelosPorMasBarato = By.xpath(FixEncoding.corregirEncoding("//li[@role='tab' and contains(@class, 'Tabs__ListElement')]/h5[contains(text(), 'Más barato')]"));
+    By byListaResuladosTrenes = By.xpath("//div[@data-e2e='trip-card']");
 
     public TrenesPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement> obtenerResultadosTrenesBuscados() {
+        return buscarElementosWeb(byListaResuladosTrenes);
     }
 
     public void seleccionarOpcionSoloIdaTren(){
@@ -130,9 +142,7 @@ public class TrenesPage extends BasePage {
         clic(byBtnDNI);
         agregarTexto(byNumDNI,DNI);
 
-
     }
-
     public void seleccionarAsistenciaEspecial(){
         clic(byBtnAsistenciaEspecial);
         esperarXsegundos(1000);
@@ -140,5 +150,120 @@ public class TrenesPage extends BasePage {
         esperarXsegundos(1000);
         seleccionarCmbPorValue(esperarElementoWeb(byTipoAsistencia),"Pasajero no puede subir ni bajar escalones (WCHS)");
     }
+
+    public void ingresarOrigenTrenes(String texto) {
+        clic(byTxtOrigen);
+        esperarXsegundos(1000);
+        agregarTexto(byTxtOrigen, texto);
+    }
+
+    public void ingresarDestinoTrenes(String texto) {
+        clic(byTxtDestino);
+        esperarXsegundos(1000);
+        agregarTexto(byTxtDestino, texto);
+    }
+
+    public void insertarValores (String ori, String desti){
+        ingresarOrigenTrenes(ori);
+        esperarXsegundos(2000);
+        ingresarDestinoTrenes(desti);
+        esperarXsegundos(2000);
+    }
+    public void filtrarResultadoPorMasBarato (){
+        clic(esperarElementoWeb(byBtnFiltrarResultadosVuelosPorMasBarato));
+    }
+
+
+    public void seleccionarCampoFechaDeVuelta() {
+        clic(byInputFechaDeVuelta);
+    }
+
+    public void ingresarFechaDeIda(String rutaXpath) {
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
+    }
+
+    public void ingresarFechaDeVuelta(String rutaXpath) {
+        WebElement fechaSeleccionada = buscarElementoWeb(By.xpath(rutaXpath));
+        clic(fechaSeleccionada);
+    }
+
+    public void seleccionCamposIdayVuelta(String dia, String diaSgt){
+        seleccionarCampoFechaDeVuelta();
+        esperarXsegundos(500);
+        ingresarFechaDeIda("//div[@aria-labelledby='2-2024']//button[text()='" + dia + "']");
+        esperarXsegundos(1000);
+        ingresarFechaDeVuelta("//div[@aria-labelledby='2-2024']//button[text()='" + diaSgt + "']");
+        esperarXsegundos(1000);
+    }
+    public void seleccionarCampoPasajeros() {
+        clic(byInputPersonas);
+    }
+
+    public void clickCheckEquipaje(WebDriver driver){
+        esperarXsegundos(10000);
+        WebElement boton = driver.findElement(By.id("id-Equipaje de mano incl."));
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
+        }
+    }
+
+    public void clickCheckEscalaIda(WebDriver driver){
+        esperarXsegundos(10000);
+        WebElement boton = driver.findElement(By.id("id-1 escala-way0"));
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
+        }
+    }
+
+    public void clickCheckEstaIDA(WebDriver driver){
+        esperarXsegundos(10000);
+        WebElement boton = driver.findElement(By.id("id-Madrid Puerta de Atocha (XOC)-way0-DepartureLocationsFilter"));
+
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
+        }
+    }
+
+    public void clickCheckEstaVuelta(WebDriver driver){
+        esperarXsegundos(10000);
+        WebElement boton = driver.findElement(By.id("id-Madrid Puerta de Atocha (XOC)-way1-ArrivalLocationsFilter"));
+
+
+        boton.getAttribute("aria-checked");
+        if (!boton.getAttribute("aria-checked").equals("true")) {
+            boton.sendKeys(" ");
+        }
+    }
+
+    public void clickChecks (WebDriver driverX) {
+        clickCheckEquipaje(driverX);
+        clickCheckEscalaIda(driverX);
+        clickCheckEstaIDA(driverX);
+        clickCheckEstaVuelta(driverX);
+        esperarXsegundos(getTiempoCortoEspera());
+    }
+
+    public void resultadosLlenos(){
+        esperarXsegundos(10000);
+        boolean Vof = obtenerResultadosTrenesBuscados().isEmpty();
+        if (!Vof) {
+            esperarXsegundos(3000);
+            System.out.println("Hay resultados para esta busqueda");
+            Assertions.assertFalse(Vof);
+        } else {
+            System.out.println("No hay resultados para esta busqueda");
+            Assertions.assertTrue(Vof);
+        }
+    }
+
+
+
 
 }
