@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CPs {
 
     HomePage home;
@@ -57,6 +58,7 @@ public class CPs {
     }
 
     @Test
+    @Order(1)
     public void TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios() {
         dataCPs = DataDriven.prepararData("TC001_Busqueda_Vuelos_Baratos_Europa_IdaYVuelta_Campos_Vacios");
 
@@ -88,6 +90,7 @@ public class CPs {
     }
 
     @Test
+    @Order(2)
     public void TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria() {
 
         dataCPs = DataDriven.prepararData("TC002_Busqueda_Vuelos_Baratos_FindeSem_IdayVuelta_Ciudades_12diff_Horaria");
@@ -107,6 +110,7 @@ public class CPs {
     }
 
     @Test
+    @Order(3)
     public void TC003_Busqueda_Vuelos_Nacionales_SoloIda_Valencia_Madrid_ClaseTurista_2Adultos() {
 
 
@@ -162,6 +166,7 @@ public class CPs {
     }
 
     @Test
+    @Order(4)
     public void TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala() {
 
         dataCPs = DataDriven.prepararData("TC004_Filtrado_Vuelos_Baratos_Finde_IdaYVuelta_Precio_Pago_Equipaje_Escala");
@@ -190,6 +195,7 @@ public class CPs {
     }
 
     @Test
+    @Order(5)
     public void TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido() {
 
         dataCPs = DataDriven.prepararData("TC005_Reserva_DatosPersonales_Vacios_Vuelos_FinDeSemana_SoloIda_Lima_NuevaYork_ClaseBusiness_1Adulto_MasRapido");
@@ -253,6 +259,7 @@ public class CPs {
     }
 
     @Test
+    @Order(6)
     public void TC006_Busqueda_Vuelos_Multidestino() {
         home.irAMultidestino();
         home.cambiarALaUltimaVentanaAbierta();
@@ -262,6 +269,7 @@ public class CPs {
     }
 
     @Test
+    @Order(7)
     public void TC007_BusquedaDeTrenes_SoloIda() {
 
         dataCPs = DataDriven.prepararData("TC007_BusquedaDeTrenes_SoloIda");
@@ -294,6 +302,7 @@ public class CPs {
     }
 
     @Test
+    @Order(8)
     public void TC008_BusquedaDeTrenes_IdaYVuelta() {
 
         dataCPs = DataDriven.prepararData("TC008_BusquedaDeTrenes_IdaYVuelta");
@@ -328,6 +337,7 @@ public class CPs {
     }
 
     @Test
+    @Order(9)
     public void TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo() {
 
         dataCPs = DataDriven.prepararData("TC0009_BusquedaDeTrenes_IdaYVuelta_MasRapido_IdaYVueltaAlMismoTiempo");
@@ -371,6 +381,7 @@ public class CPs {
     }
 
     @Test
+    @Order(10)
     public void TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida() {
 
         dataCPs = DataDriven.prepararData("TC0010_BusquedaDeTrenes_IdaYVuelta_MasRapido_ReservarAsistenciaEspecial_ModalidadReducida");
@@ -417,6 +428,7 @@ public class CPs {
     }
 
     @Test
+    @Order(11)
     public void TC011_Busqueda_TrenXHotel_RangoPrecios() {
         home.irATrenHotel();
         home.esperarXsegundos(home.getTiempoMedioEspera());
@@ -424,7 +436,8 @@ public class CPs {
         trenHotel.ejecutador_TC011("Madrid", "Barcelona", "1 resultado encontrado para 18 mar - 24 mar");
     }
 
-        @Test
+    @Test
+    @Order(12)
     public void TC0012_Filtrado_Trenes_MAD_VLC_Precio_Equipaje_Escala_Salida_Aere_Esta () {
 
          dataCPs = DataDriven.prepararData("TC0012_Filtrado_Trenes_MAD_VLC_Precio_Equipaje_Escala_Salida_Aere_Esta");
@@ -446,12 +459,14 @@ public class CPs {
     }
 
     @Test
+    @Order(13)
     public void TC0013_Filtrar_Detalles_Busqueda() {
         home.esperarXsegundos(2000);
         home.buscarHoteles();
     }
 
     @Test
+    @Order(14)
     public void TC014_Verificar_BotonModificar_ResumenDelViaje_EscapadasAndorra() {
         home.irACasas();
         home.esperarXsegundos(5000);
@@ -472,6 +487,7 @@ public class CPs {
     }
 
     @Test
+    @Order(15)
     public void T015_Busqueda_HotelesCasa_RangoPrecios() {
         home.irAHotelCasa();
         home.esperarXsegundos(home.getTiempoMedioEspera());
@@ -480,6 +496,7 @@ public class CPs {
     }
 
     @Test
+    @Order(16)
     public void TC0016_Compartir_InfoCasa_Contacto() {
         home.buscarHoteles();
         alterPage = new AlojamientoAlterPage(driver);
@@ -489,6 +506,7 @@ public class CPs {
     }
 
     @Test
+    @Order(17)
     public void T017_Busqueda_HotelesEsqui_VariosFiltrosDeUna() {
         home.irAHotelEsqui();
         home.esperarXsegundos(home.getTiempoMedioEspera());
@@ -497,6 +515,7 @@ public class CPs {
     }
 
     @Test
+    @Order(18)
     public void TC0018_Filtrar_Detalles_Hotel() {
         home.buscarHoteles();
         alterPage = new AlojamientoAlterPage(driver);
